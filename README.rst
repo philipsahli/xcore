@@ -7,8 +7,10 @@ Features
 
 Python
 ------
+
 Django
 ------
+
 Mezzanine
 ---------
 
