@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load xcore_tags %}
+
+{% block title %}
+{% trans "Register"|labelize %}
+{% endblock %}
+
+{% block main %}
+<div>
+    <form action='/register' method='post'>
+        {% csrf_token %}
+        <fieldset>
+            <ul>
+                {{ form.as_ul }}
+            </ul>
+            <input class="reg" type="submit" value="register" />
+            <input type="hidden" name="next" value="{{ next|escape }}" />
+        </fieldset>
+    </form>
+    <script type="text/javascript">
+        document.getElementById('username').focus()
+    </script>
+</div>
+{% endblock %}
