@@ -31,7 +31,7 @@ class SeleniumTestCase(unittest.TestCase):
         self.verificationErrors = []
         self.startSeleniumServer()
         self.startDjango()
-        self.selenium = selenium("localhost", 4444, "*firefox", "http://127.0.0.1:8000")
+        self.selenium = selenium("localhost", 4444, "*firefox", "http://127.0.0.1:8888")
         self.selenium.start()
 
     def tearDown(self):
@@ -52,5 +52,5 @@ class SeleniumTestCase(unittest.TestCase):
         Executor.execute(Command(["kill", "-9", "%s" % str(int(self.django_pid)+1)]))
 
     def startDjango(self):
-        self.django_pid = Executor.execute(Command(["python", os.path.join(self.dir, "manage.py"), "runserver"]), background=True)
+        self.django_pid = Executor.execute(Command(["python", os.path.join(self.dir, "manage.py"), "runserver", "127.0.0.1:8888"]), background=True)
         time.sleep(1)
