@@ -29,13 +29,14 @@ class Command():
 
 class Executor():
     @staticmethod
-    def execute(cmd, communicate=False, return_pid=False):
-        print cmd.arg
-        p = Popen(cmd.arg, shell=return_pid, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    def execute(cmd, communicate=False, return_pid=False, background=False):
+        if background:
+            p = Popen(cmd.arg, shell=return_pid)
+            return p.pid
+        p = Popen(cmd.arg, shell=return_pid, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         if communicate:
             return p.communicate()
         elif return_pid:
-            print p.pid
             return p.pid
         else:
             p.wait()

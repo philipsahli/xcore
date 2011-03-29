@@ -80,6 +80,7 @@ class MaintenanceTest(TestCase):
     def testStaticMaintenanceFile_should_generate(self):
         created = create_maintenance_file()
         self.assertEquals(True, created)
+        # TODO: delete site_media/maintenance/index.html after test
 
 class LabelTest(TestCase):
 

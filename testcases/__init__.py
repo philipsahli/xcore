@@ -17,17 +17,21 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-import unittest, time
+import unittest, time, os
 from selenium import selenium
 from xcore.utils.cmd import Executor, Command
 
 class SeleniumTestCase(unittest.TestCase):
+
+    def __init__(self, methodName='runTest', dir = '.'):
+        self.dir = dir
+        super(SeleniumTestCase, self).__init__(methodName)
+
     def setUp(self):
         self.verificationErrors = []
         self.startSeleniumServer()
         self.startDjango()
-        self.selenium = selenium("localhost", 4444, "*firefox", "http://127.0.0.1:8000/")
-        self.selenium.set_timeout(5)
+        self.selenium = selenium("localhost", 4444, "*firefox", "http://127.0.0.1:8000")
         self.selenium.start()
 
     def tearDown(self):
@@ -36,12 +40,13 @@ class SeleniumTestCase(unittest.TestCase):
         self.assertEqual([], self.verificationErrors)
 
     def startSeleniumServer(self):
-        self.selenium_pid = Executor.execute(Command(["java", "-jar", "/Users/fatrix/Downloads/selenium-server-standalone-2.0b3.jar"]), return_pid=True)
-        time.sleep(6)
+        self.selenium_pid = Executor.execute(Command(["nohup", "java", "-jar", "/Users/fatrix/Downloads/selenium-server-standalone-2.0b3.jar"]), background=True)
+        time.sleep(4)
 
     def stopSeleniumServer(self):
         Executor.execute(Command(["kill", "-9", "%s" % self.selenium_pid]))
 
     def startDjango(self):
-        Executor.execute(Command(["python", "manage.py", "runserver"]))
-        time.sleep(5)
+        print "startDjango"
+        Executor.execute(Command(["python", os.path.join(self.dir, "manage.py"), "runserver"]), background=True)
+        time.sleep(1)
