@@ -37,6 +37,7 @@ class SeleniumTestCase(unittest.TestCase):
     def tearDown(self):
         self.selenium.stop()
         self.stopSeleniumServer()
+        self.stopDjango()
         self.assertEqual([], self.verificationErrors)
 
     def startSeleniumServer(self):
@@ -46,7 +47,10 @@ class SeleniumTestCase(unittest.TestCase):
     def stopSeleniumServer(self):
         Executor.execute(Command(["kill", "-9", "%s" % self.selenium_pid]))
 
+    def stopDjango(self):
+        Executor.execute(Command(["kill", "-9", "%s" % self.django_pid]))
+        Executor.execute(Command(["kill", "-9", "%s" % str(int(self.django_pid)+1)]))
+
     def startDjango(self):
-        print "startDjango"
-        Executor.execute(Command(["python", os.path.join(self.dir, "manage.py"), "runserver"]), background=True)
+        self.django_pid = Executor.execute(Command(["python", os.path.join(self.dir, "manage.py"), "runserver"]), background=True)
         time.sleep(1)
