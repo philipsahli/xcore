@@ -41,8 +41,9 @@ class SeleniumTestCase(unittest.TestCase):
         self.assertEqual([], self.verificationErrors)
 
     def startSeleniumServer(self):
-        self.selenium_pid = Executor.execute(Command(["nohup", "java", "-jar", "/Users/fatrix/Downloads/selenium-server-standalone-2.0b3.jar"]), background=True)
-        time.sleep(4)
+        # TODO: fix path to selenium.jar
+        self.selenium_pid = Executor.execute(Command(["java", "-jar", "/Users/fatrix/Downloads/selenium-server-standalone-2.0b3.jar"]), background=True)
+        time.sleep(10)
 
     def stopSeleniumServer(self):
         Executor.execute(Command(["kill", "-9", "%s" % self.selenium_pid]))
