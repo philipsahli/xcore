@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/testpro/!svn/ver/214/sahlinet/branches/xcore/mezzanine/xpages
+END
+admin.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/testpro/!svn/ver/200/sahlinet/branches/xcore/mezzanine/xpages/admin.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/testpro/!svn/ver/200/sahlinet/branches/xcore/mezzanine/xpages/__init__.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/testpro/!svn/ver/214/sahlinet/branches/xcore/mezzanine/xpages/models.py
+END
+urls.py
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/testpro/!svn/ver/214/sahlinet/branches/xcore/mezzanine/xpages/urls.py
+END
