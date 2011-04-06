@@ -9,7 +9,7 @@ class Migration(SchemaMigration):
         # Adding model 'XPage'
         db.create_table('xpages_xpage', (
             ('page_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['pages.Page'], unique=True, primary_key=True)),
-            ('content', self.gf('mezz.core.fields.HtmlField')()),
+            ('content', self.gf('mezzanine.core.fields.HtmlField')()),
             ('splash_text', self.gf('mezz.core.fields.HtmlField')(null=True, blank=True)),
             ('splash_image', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
             ('with_splash', self.gf('django.db.models.fields.BooleanField')(default=True)),
