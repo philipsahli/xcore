@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
         db.create_table('xpages_xpage', (
             ('page_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['pages.Page'], unique=True, primary_key=True)),
             ('content', self.gf('mezzanine.core.fields.HtmlField')()),
-            ('splash_text', self.gf('mezz.core.fields.HtmlField')(null=True, blank=True)),
+            ('splash_text', self.gf('mezzanine.core.fields.HtmlField')(null=True, blank=True)),
             ('splash_image', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
             ('with_splash', self.gf('django.db.models.fields.BooleanField')(default=True)),
         ))
@@ -35,7 +35,7 @@ class Migration(SchemaMigration):
             '_keywords': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
             '_order': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
             'content_model': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
-            'description': ('mezz.core.fields.HtmlField', [], {'blank': 'True'}),
+            'description': ('mezzanine.core.fields.HtmlField', [], {'blank': 'True'}),
             'expiry_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'in_footer': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -52,10 +52,10 @@ class Migration(SchemaMigration):
         },
         'xpages.xpage': {
             'Meta': {'ordering': "('_order',)", 'object_name': 'XPage', '_ormbases': ['pages.Page']},
-            'content': ('mezz.core.fields.HtmlField', [], {}),
+            'content': ('mezzanine.core.fields.HtmlField', [], {}),
             'page_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['pages.Page']", 'unique': 'True', 'primary_key': 'True'}),
             'splash_image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'splash_text': ('mezz.core.fields.HtmlField', [], {'null': 'True', 'blank': 'True'}),
+            'splash_text': ('mezzanine.core.fields.HtmlField', [], {'null': 'True', 'blank': 'True'}),
             'with_splash': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
         }
     }
