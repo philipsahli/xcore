@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import patterns
+from django.utils.importlib import import_module
 import os
 
 media_root = settings.MEDIA_ROOT
