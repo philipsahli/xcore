@@ -1,0 +1,1 @@
+-e git+https://github.com/justquick/django-math-captcha.git#egg=djangomath-captcha

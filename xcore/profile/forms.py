@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import  User
 from django.forms import ModelForm
+from math_captcha.forms import MathCaptchaModelForm
 from xcore.profile.models import UserProfile
 import re
 alnum_re = re.compile(r'^\w+$') # regexp. from jamesodo in #django
@@ -11,7 +12,7 @@ class UserProfileForm(ModelForm):
         model = UserProfile
 
 
-class RegistrationForm(forms.Form):
+class RegistrationForm(forms.Form, MathCaptchaModelForm):
     username = forms.CharField(label=u'Username', max_length=30)
     email = forms.EmailField(label=u'E-mail address')
     password1 = forms.CharField(label=u'Password',
