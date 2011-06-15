@@ -16,6 +16,7 @@ class MaintenanceMiddleware:
         create_maintenance_file()
 
     def process_request(self, request):
+        mezzanine_maintenance = False
         try:
             from mezzanine.conf import settings as mezzanine_settings
             mezzanine_settings.use_editable()
