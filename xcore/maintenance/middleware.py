@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.conf import settings
 
 import re
-from mezzanine.conf import settings as mezzanine_settings
+
 from utils import create_maintenance_file
 
 class MaintenanceMiddleware:
@@ -16,8 +16,14 @@ class MaintenanceMiddleware:
         create_maintenance_file()
 
     def process_request(self, request):
-        mezzanine_settings.use_editable()
-        if mezzanine_settings.MAINTENANCE_ON == True or getattr(settings, "MAINTENANCE_ON"):
+        try:
+            from mezzanine.conf import settings as mezzanine_settings
+            mezzanine_settings.use_editable()
+            mezzanine_maintenance = mezzanine_settings.MAINTENANCE_ON
+        except ImportError, e:
+            pass
+
+        if  mezzanine_maintenance == True or getattr(settings, "MAINTENANCE_ON"):
             p = re.compile(r'.*(admin|media|__debug__|grappelli|maintenance)/.*')
             if not p.match(request.path):
                 response = HttpResponseServiceUnavailable("Service Unavailable", mimetype="text/plain")
