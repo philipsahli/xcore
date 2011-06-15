@@ -10,7 +10,7 @@ from maintenance.utils import create_maintenance_file
 
 class RegisterTest(TestCase):
     
-    url = "/register"
+    url = "/register/"
     c = None
     user = None
     profile = None
@@ -31,6 +31,14 @@ class RegisterTest(TestCase):
         response = self.c.get(self.url, follow=True)
         self.assertEquals(200, response.status_code)
 
+        new_user = User.objects.create_user(username="asdf",
+                                            email="asdf@asdf.com",
+                                            password="blablabla")
+        self.assertEquals(2, new_user.id)
+        up = UserProfile(for_user=new_user, url="", country="", email=new_user.email)
+        up.save()
+        self.assertEquals(2, up.id)
+
     def testPostRegister(self):
         email = "user@user.com"
         response = self.c.post(self.url, {'username': "user",
@@ -45,7 +53,7 @@ class RegisterTest(TestCase):
         self.profile = UserProfile.objects.get(email=email)
 
         self.assertEquals(self.user.email, email)
-        self.assertEquals(self.profile.user.email, email)
+        self.assertEquals(self.profile.for_user.email, email)
 
 class MaintenanceTest(TestCase):
 

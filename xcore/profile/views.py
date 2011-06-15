@@ -1,38 +1,81 @@
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.comments.signals import comment_will_be_posted
 from django.core.mail import mail_admins
 from django.shortcuts import render_to_response
 from django.template import Context, loader, RequestContext
-from xcore.profile.forms import RegistrationForm
-from xcore.profile.models import UserProfile
+from xcore.profile.forms import RegistrationForm, UserProfileForm
+from django.contrib import auth
 
 import logging
+from xcore.profile.models import UserProfile
+
 logger = logging.getLogger(__name__)
 
+#def logout(request):
+#    auth.logout(request)
+#    # Redirect to a success page.
+#    return render_to_response('xcore/logout.html', {})
+
+def loggedin(request):
+    return render_to_response('xcore/logged_in.html', {}, context_instance = RequestContext(request))
+
+@login_required
+def profile(request):
+
+    try:
+        prof = request.user.get_profile()
+    except Exception, e:
+        print e
+        from xcore import utils
+        utils.print_stacktrace()
+        up = UserProfile(user=request.user, url="", country="")
+        up.save()
+        prof = request.user.get_profile()
+
+    if request.method == 'POST':
+        f = UserProfileForm(request.POST, instance=prof)
+        if f.is_valid():
+            f.save()
+            user = User.objects.get(id=request.user.id)
+            user.email = request.POST['email']
+            #print request.POST['email']
+            #print user.email
+            user.save()
+            return render_to_response('xcore/profile_changed.html', context_instance = RequestContext(request))
+    else:
+        f = UserProfileForm(instance=prof)
+
+    return render_to_response('xcore/profile.html', {'form': f, 'profile': prof},
+        context_instance = RequestContext(request))
+
 def register(request):
+    print "register"
     # TODO: add django-simple-captcha
     if request.method == 'POST':
+        #form = RegistrationForm(request.POST)
+        print "form"
         form = RegistrationForm(request.POST)
         if form.is_valid():
             try:
                 new_user = form.save()
-                
                 up = UserProfile(user=new_user, url="", country="", email=request.REQUEST['email'])
                 up.save()
-                
 #                subject = " new user: %s" % request.REQUEST['username']
 #                msg = "admin-link: /admin/profile/user/"
 #                mail_admins(subject, msg, fail_silently=False)
-  
                 logger.info("user registered")
-
-                # TODO: redirect to /register/complete
                 return render_to_response('xcore/register_complete.html', context_instance=RequestContext(request))
                 
             except Exception, e:
                 # TODO: add log entry
-                logger.error(e)
+                from xcore import utils
+                utils.print_stacktrace()
                 print "error"
+                new_user.delete()
+        else:
+            print "INVALID"
         
        
     else:

@@ -1,17 +1,18 @@
 
 
 from PIL import Image, ImageChops, ImageDraw,\
-    ImageFilter, ImageFont
+    ImageFilter, ImageFont, ImageColor
 from cStringIO import StringIO
 import os
 
 
-def get_label(text="gugus"):
+def get_label(text="TEXT", text_color="white"):
 
     mpath = os.path.dirname(os.path.abspath(__file__))
+    print mpath
 
     # TODO: Font family and size as arg
-    font = ImageFont.truetype(mpath+"/font/Futura_BoldBT.ttf", 22)
+    font = ImageFont.truetype(os.path.join(mpath, "font/Futura_BoldBT.ttf"), 22)
     #font = ImageFont.truetype(mpath+"/font/Futura_Extra_BlackBT.ttf", 22)
     #font = ImageFont.load(mpath+"/pilfonts/timR24.pil")
 
@@ -21,10 +22,10 @@ def get_label(text="gugus"):
     alpha = Image.new("L", im.size, "black")
     imtext = Image.new("L", im.size, 0)
     drtext = ImageDraw.Draw(imtext)
-    drtext.text((1,1), text, font=font, fill="white")
+    drtext.text((1,1), text, font=font, fill=tohex((inverted(text_color))))
     w, h = drtext.textsize(text, font=font)
     alpha = ImageChops.lighter(alpha, imtext)
-    solidcolor = Image.new("RGBA", im.size, "#ffffff")
+    solidcolor = Image.new("RGBA", im.size, text_color)
     immask = Image.eval(imtext, lambda p: 255 * (int(p != 0)))
     im = Image.composite(solidcolor, im, immask)
     im.putalpha(alpha)
@@ -43,3 +44,14 @@ def get_label(text="gugus"):
     shadowc.save(output, "PNG")
     
     return output
+
+def inverted(color):
+    rgb = ImageColor.getrgb(color)
+    inv=255
+    return (inv-rgb[0], inv-rgb[1], inv-rgb[2])
+
+def tohex(rgb):
+    print rgb
+    # from http://blog.affien.com/archives/2004/12/20/rgb-to-hex-and-why-the-python-interactive-mode-is-so-damned-handy/
+    return "#%02X%02X%02X" % (rgb[0], rgb[1], rgb[2])
+

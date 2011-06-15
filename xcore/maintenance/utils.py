@@ -25,7 +25,7 @@ from django.template import Context
 
 
 def create_maintenance_file():
-    media_url = getattr(settings, "MEDIA_ROOT")
+    media_url = getattr(settings, "MEDIA_URL")
     try:
         c = Context({"MEDIA_URL": settings.MEDIA_URL})
         rendered = render_to_string('maintenance.html', context_instance=c)

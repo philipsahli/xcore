@@ -18,15 +18,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-from copy import deepcopy
-from mezzanine.pages.admin import RichTextPageAdmin
-from django.contrib import admin
-from xcore.mezz.xpages.models import XPage
-
-gallery_extra_fieldsets = ((None, {"fields": ("with_splash", "splash_text", "splash_image")}),)
-
-class XPageAdmin(RichTextPageAdmin):
-    fieldsets = deepcopy(RichTextPageAdmin.fieldsets) + gallery_extra_fieldsets
-
-admin.site.register(XPage, 
-                    XPageAdmin)
+  

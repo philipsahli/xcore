@@ -3,13 +3,13 @@
 {% load i18n %}
 {% load xcore_tags %}
 
-{% block title %}
-{% trans "Register"|labelize %}
-{% endblock %}
+<!--{% block title %}-->
+<!--{% trans "Register" %}-->
+<!--{% endblock %}-->
 
 {% block main %}
 <div>
-    <form action='/register' method='post'>
+    <form action='/register/' method='post'>
         {% csrf_token %}
         <fieldset>
             <ul>

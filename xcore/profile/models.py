@@ -9,7 +9,7 @@ class UserProfile(models.Model):
     country = models.CharField(max_length=50)
     email = models.EmailField()
     url = models.URLField()
-    user = models.ForeignKey(User, unique=True, editable=False, related_name="user_userprofile")
+    user = models.ForeignKey(User, editable=False, related_name="user_userprofile", null=True)
     
     class Meta:
         db_table = 'xcore_userprofile'

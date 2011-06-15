@@ -1,6 +1,8 @@
 # encoding: utf-8
+import datetime
 from south.db import db
 from south.v2 import SchemaMigration
+from django.db import models
 
 class Migration(SchemaMigration):
 
@@ -14,7 +16,7 @@ class Migration(SchemaMigration):
             ('country', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('email', self.gf('django.db.models.fields.EmailField')(max_length=75)),
             ('url', self.gf('django.db.models.fields.URLField')(max_length=200)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], unique=True)),
+            ('for_user', self.gf('django.db.models.fields.related.ForeignKey')(related_name='user_userprofile', unique=True, to=orm['auth.User'])),
         ))
         db.send_create_signal('profile', ['UserProfile'])
 
@@ -68,9 +70,9 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'UserProfile', 'db_table': "'xcore_userprofile'"},
             'country': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
+            'for_user': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'user_userprofile'", 'unique': 'True', 'to': "orm['auth.User']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '200'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'unique': 'True'})
+            'url': ('django.db.models.fields.URLField', [], {'max_length': '200'})
         }
     }
 

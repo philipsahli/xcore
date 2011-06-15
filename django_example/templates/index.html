@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block main %}
+{% if user.is_authenticated %}
+    <p>Logout</p>
+        <a href='/logout'>logout</a>
+    <p>Profile</p>
+        <a href='/accounts/profile'>profile</a>
+{% else %}
+    <p>Login</p>
+        <a href='/login'>login</a>
+{% endif %}
+{% endblock %}

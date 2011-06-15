@@ -20,12 +20,12 @@
 
 from mezzanine.pages.models import  Page
 from mezzanine.core.fields import HtmlField
-from mezzanine.core.models import Content
+from mezzanine.core.models import RichText
 from django.db.models import ImageField
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-class XPage(Page, Content):
+class XPage(Page, RichText):
     splash_text = HtmlField(_("Splash"), null=True, blank=True)
     splash_image = ImageField("Image", upload_to="splash/", blank=True, null=True)
     with_splash = models.BooleanField(default=True)
