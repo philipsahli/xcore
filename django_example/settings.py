@@ -114,5 +114,6 @@ INSTALLED_APPS = (
     'south',
     'xcore',
     'xcore.profile',
-    'xcore.label'
+    'xcore.label',
+    'xcore.maintenance'
 )

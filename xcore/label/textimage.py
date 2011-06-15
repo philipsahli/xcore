@@ -6,13 +6,11 @@ from cStringIO import StringIO
 import os
 
 
-def get_label(text="TEXT", text_color="white"):
+def get_label(text="TEXT", text_color="white", text_size=22):
 
     mpath = os.path.dirname(os.path.abspath(__file__))
-    print mpath
 
-    # TODO: Font family and size as arg
-    font = ImageFont.truetype(os.path.join(mpath, "font/Futura_BoldBT.ttf"), 22)
+    font = ImageFont.truetype(os.path.join(mpath, "font/Futura_BoldBT.ttf"), text_size)
     #font = ImageFont.truetype(mpath+"/font/Futura_Extra_BlackBT.ttf", 22)
     #font = ImageFont.load(mpath+"/pilfonts/timR24.pil")
 
