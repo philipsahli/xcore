@@ -1,4 +1,5 @@
 # Django settings for django_example project.
+from logging import StreamHandler
 import os
 
 DEBUG = True
@@ -67,7 +68,7 @@ MEDIA_ROOT = ''
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = os.path.join(projectdir, "media")
+MEDIA_ROOT = os.path.join(projectdir, "media")
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -100,7 +101,6 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(projectdir, "templates")
-
 )
 
 INSTALLED_APPS = (
@@ -117,3 +117,60 @@ INSTALLED_APPS = (
     'xcore.label',
     'xcore.maintenance'
 )
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+#    'filters': {
+#        'special': {
+#            '()': 'project.logging.SpecialFilter',
+#            'foo': 'bar',
+#        }
+#    },
+    'handlers': {
+        'null': {
+            'level':'DEBUG',
+            'class':'django.utils.log.NullHandler',
+        },
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'file': {
+            'class':  'logging.handlers.RotatingFileHandler',
+            'level': 'INFO',
+            'formatter': 'simple', 
+            'filename': 'django_example.log',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            #'filters': ['special']
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers':['null'],
+            'propagate': True,
+            'level':'INFO',
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'xcore': {
+            'handlers': ['file'],
+            'level': 'INFO'
+        }
+    }
+}

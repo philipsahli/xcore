@@ -25,11 +25,11 @@ from django.template import Context
 
 
 def create_maintenance_file():
-    media_url = getattr(settings, "MEDIA_URL")
+    media_root = getattr(settings, "MEDIA_ROOT")
     try:
         c = Context({"MEDIA_URL": settings.MEDIA_URL})
         rendered = render_to_string('maintenance.html', context_instance=c)
-        file = open(media_url + "/maintenance/index.html", "w")
+        file = open(media_root + "/maintenance/index.html", "w")
         file.write(rendered.encode('utf-8'))
         file.close()
     except Exception, e:

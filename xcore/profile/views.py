@@ -11,7 +11,7 @@ from django.contrib import auth
 import logging
 from xcore.profile.models import UserProfile
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("xcore")
 
 #def logout(request):
 #    auth.logout(request)
@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 #    return render_to_response('xcore/logout.html', {})
 
 def loggedin(request):
+    logger.info(str(request.user)+" logged in")
     return render_to_response('xcore/logged_in.html', {}, context_instance = RequestContext(request))
 
 @login_required
@@ -51,11 +52,10 @@ def profile(request):
         context_instance = RequestContext(request))
 
 def register(request):
-    print "register"
-    # TODO: add django-simple-captcha
+    logger.info("register")
+    logger.info(request)
     if request.method == 'POST':
-        #form = RegistrationForm(request.POST)
-        print "form"
+
         form = RegistrationForm(request.POST)
         if form.is_valid():
             try:
@@ -69,10 +69,9 @@ def register(request):
                 return render_to_response('xcore/register_complete.html', context_instance=RequestContext(request))
                 
             except Exception, e:
-                # TODO: add log entry
+                logger.error("registration failed")
                 from xcore import utils
                 utils.print_stacktrace()
-                print "error"
                 new_user.delete()
         else:
             print "INVALID"
