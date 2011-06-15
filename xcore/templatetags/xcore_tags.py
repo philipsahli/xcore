@@ -1,14 +1,5 @@
 from django import template
 from django.template.loader import get_template
-from django.http import HttpResponse
-from xcore.utils import textimage
-from django.utils.safestring import mark_safe
-
-from django.core.cache import cache
-
-from django.conf import settings
-
-import hashlib
 
 register = template.Library()
 
