@@ -30,7 +30,7 @@ class ForwardedMiddleware:
         print forwarded_host
         only_forwarded = getattr(settings, 'ONLY_FORWARDED')
         host_forwarded = getattr(settings, 'HOST_FORWARDED')
-        if 'HTTP_X_FORWARDED_HOST' == host_forwarded or\
+        if forwarded_host == host_forwarded or\
                 only_forwarded == False:
             logger.info("received request over proxy "+str(forwarded_host)+" -> OK")
             return None
