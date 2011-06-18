@@ -62,9 +62,9 @@ def register(request):
                 new_user = form.save()
                 up = UserProfile(user=new_user, url="", country="", email=request.REQUEST['email'])
                 up.save()
-#                subject = " new user: %s" % request.REQUEST['username']
-#                msg = "admin-link: /admin/profile/user/"
-#                mail_admins(subject, msg, fail_silently=False)
+                subject = " new user: %s" % request.REQUEST['username']
+                msg = "admin-link: /admin/profile/user/"
+                mail_admins(subject, msg, fail_silently=False)
                 logger.info("user registered")
                 return render_to_response('xcore/register_complete.html', context_instance=RequestContext(request))
                 

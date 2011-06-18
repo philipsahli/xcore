@@ -49,7 +49,6 @@ def inverted(color):
     return (inv-rgb[0], inv-rgb[1], inv-rgb[2])
 
 def tohex(rgb):
-    print rgb
     # from http://blog.affien.com/archives/2004/12/20/rgb-to-hex-and-why-the-python-interactive-mode-is-so-damned-handy/
     return "#%02X%02X%02X" % (rgb[0], rgb[1], rgb[2])
 

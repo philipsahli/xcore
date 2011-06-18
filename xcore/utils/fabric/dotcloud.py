@@ -24,7 +24,7 @@ def dotcloud_upgrade_pip():
     local("dotcloud run %(dotcloud_service)s -- pip install --upgrade -r current/requirements.txt" % env)
 
 def dotcloud_push():
-    local("dotcloud push -b dotcloud %(dotcloud_service)s ." % env)
+    local("dotcloud push -b %(dotcloud_git_branch)s %(dotcloud_service)s ." % env)
 
 def dotcloud_pip():
     local("dotcloud run %(dotcloud_service)s -- pip install -r current/requirements.txt" % env)
@@ -32,14 +32,20 @@ def dotcloud_pip():
 def dotcloud_deploy_upgrade():
     dotcloud_push()
     dotcloud_upgrade_pip()
+    dotcloud_syncdb()
+    dotcloud_restart()
 
-def dotcloud_deploy():
-    dotcloud_push()
-    dotcloud_pip()
 
 def dotcloud_syncdb():
     local("dotcloud run %(dotcloud_service)s -- python current/manage.py syncdb" % env)
+    local("dotcloud run %(dotcloud_service)s -- python current/manage.py migrate" % env)
 
 
 def dotcloud_restart():
     local("dotcloud restart %(dotcloud_service)s" % env)
+
+def dotcloud_deploy():
+    dotcloud_push()
+    dotcloud_pip()
+    dotcloud_syncdb()
+    dotcloud_restart()

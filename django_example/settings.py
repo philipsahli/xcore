@@ -112,7 +112,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     'south',
-    'xcore',
+    #'xcore',
     'xcore.profile',
     'xcore.label',
     'xcore.maintenance'
