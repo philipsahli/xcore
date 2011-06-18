@@ -1,5 +1,4 @@
 # Django settings for django_example project.
-from logging import StreamHandler
 import os
 
 DEBUG = True
@@ -11,7 +10,6 @@ ADMINS = (
 
 # add xcore module to path
 import sys
-sys.path.append("..")
 projectdir = os.path.abspath(os.getcwd())
 
 # AUTH_PROFILE_MODULE - could go to xcore module
@@ -91,7 +89,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'xcore.maintenance.middleware.MaintenanceMiddleware'
+    'xcore.maintenance.middleware.MaintenanceMiddleware',
+    'xcore.forwarded.middleware.ForwardedMiddleware'
 )
 
 ROOT_URLCONF = 'django_example.urls'
@@ -112,7 +111,6 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     'south',
-    #'xcore',
     'xcore.profile',
     'xcore.label',
     'xcore.maintenance'
@@ -174,3 +172,7 @@ LOGGING = {
         }
     }
 }
+
+ONLY_FORWARDED = False
+HOST_FORWARDED = "asdf"
+REDIRECT_FORWARDED = "http://127.0.0.1:8000"

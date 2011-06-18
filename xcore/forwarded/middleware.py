@@ -20,6 +20,7 @@
 
 from django.http import HttpResponseRedirect
 from django.conf import settings
+from django.contrib.sites.models import Site
 import logging
 logger = logging.getLogger("xcore.forwarded")
 
@@ -27,13 +28,20 @@ class ForwardedMiddleware:
     # TODO: dok and test
     def process_request(self, request):
         forwarded_host = request.META.get('HTTP_X_FORWARDED_HOST')
-        print forwarded_host
-        only_forwarded = getattr(settings, 'ONLY_FORWARDED')
-        host_forwarded = getattr(settings, 'HOST_FORWARDED')
-        if forwarded_host == host_forwarded or\
+        only_forwarded = getattr(settings, 'ONLY_FORWARDED', None)
+        host_forwarded = getattr(settings, 'HOST_FORWARDED', None)
+        redirect_forwarded = getattr(settings, 'REDIRECT_FORWARDED', None)
+        if only_forwarded is None:
+            raise Exception("ONLY_FORWARDED missing in settings.py")
+        if only_forwarded:
+            if host_forwarded is None:
+                raise Exception("HOST_FORWARDED missing in settings.py")
+            if redirect_forwarded is None:
+                raise Exception("REDIRECT_FORWARDED missing in settings.py")
+            if forwarded_host == host_forwarded or\
                 only_forwarded == False:
-            logger.info("received request over proxy "+str(forwarded_host)+" -> OK")
-            return None
-        else:
-            logger.warn("received request not over proxy -> NOK")
-            return HttpResponseRedirect(redirect_to='http://www1.fatrix.ch/')
+                logger.info("received request over proxy "+str(forwarded_host)+" -> OK")
+                return None
+            else:
+                logger.warn("received request not over proxy -> NOK")
+                return HttpResponseRedirect(redirect_to=redirect_forwarded)

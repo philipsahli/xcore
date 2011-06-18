@@ -26,8 +26,8 @@ _urlpatterns += patterns("",
      (r'^reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', password_reset_confirm, {'template_name':'xcore/password_reset_confirm.html'}),
      (r'^reset/done/$', password_reset_complete, {'template_name':'xcore/password_reset_complete.html'}),
 
-     (r'^changepw/$', password_change, {'template_name': 'password_change.html'}),
-     (r'^changepw_done/$', password_change_done, {'template_name': 'password_change_done.html'}),
+     (r'^changepw/$', password_change, {'template_name': 'xcore/password_change.html'}),
+     (r'^changepw_done/$', password_change_done, {'template_name': 'xcore/password_change_done.html'}),
       
 
      (r"^label/(?P<key>.*).png", "xcore.label.views.get_label"),
