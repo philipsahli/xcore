@@ -10,6 +10,7 @@ ADMINS = (
 
 # add xcore module to path
 import sys
+sys.path.append("..")
 projectdir = os.path.abspath(os.getcwd())
 
 # AUTH_PROFILE_MODULE - could go to xcore module
@@ -134,15 +135,6 @@ LOGGING = {
 #        }
 #    },
     'handlers': {
-        'null': {
-            'level':'DEBUG',
-            'class':'django.utils.log.NullHandler',
-        },
-        'console':{
-            'level':'DEBUG',
-            'class':'logging.StreamHandler',
-            'formatter': 'simple'
-        },
         'file': {
             'class':  'logging.handlers.RotatingFileHandler',
             'level': 'INFO',
@@ -156,11 +148,6 @@ LOGGING = {
         }
     },
     'loggers': {
-        'django': {
-            'handlers':['null'],
-            'propagate': True,
-            'level':'INFO',
-        },
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
