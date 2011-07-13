@@ -2,13 +2,13 @@
 {% block main %}
 {% if user.is_authenticated %}
     <p>Logout</p>
-        <a href='/logout'>logout</a>
+        <a href='{% url logout %}'>logout</a>
     <p>Profile</p>
-        <a href='/accounts/profile'>profile</a>
+        <a href='{% url profile %}'>profile</a>
     <p>Change password</p>
-    <a href='/changepw'>change password</a>
+    <a href='{% url change_password %}'>change password</a>
 {% else %}
     <p>Login</p>
-        <a href='/login'>login</a>
+        <a href='{% url login %}'>login</a>
 {% endif %}
 {% endblock %}

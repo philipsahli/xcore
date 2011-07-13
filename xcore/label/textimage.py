@@ -40,6 +40,7 @@ def get_label(text="TEXT", text_color="white", text_size=22):
         count+=1
     
     shadowc.save(output, "PNG")
+    print output
     
     return output
 

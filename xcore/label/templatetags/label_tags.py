@@ -29,6 +29,7 @@ def labelize(text="TEXT", args="black&22"):
     key =  m.hexdigest()
 
     if cache.get(key) is None or getattr(settings, "DEBUG"):
+        print "make label"
         label = textimage.get_label(text, text_color, int(text_size))
         response = HttpResponse(label.getvalue(), mimetype="image/png")
         cache.set(key, response, 120)

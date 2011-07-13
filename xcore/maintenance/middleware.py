@@ -20,11 +20,11 @@ class MaintenanceMiddleware:
         try:
             from mezzanine.conf import settings as mezzanine_settings
             mezzanine_settings.use_editable()
-            mezzanine_maintenance = mezzanine_settings.MAINTENANCE_ON
+            mezzanine_maintenance = getattr(mezzanine_settings, "MAINTENANCE_ON", False)
         except ImportError, e:
             pass
 
-        if  mezzanine_maintenance == True or getattr(settings, "MAINTENANCE_ON"):
+        if  mezzanine_maintenance == True or getattr(settings, "MAINTENANCE_ON", False):
             p = re.compile(r'.*(admin|media|__debug__|grappelli|maintenance)/.*')
             if not p.match(request.path):
                 response = HttpResponseServiceUnavailable("Service Unavailable", mimetype="text/plain")
