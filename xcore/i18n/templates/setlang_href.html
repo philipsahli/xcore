@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<form id="lang" action="/i18n/setlang/" method="post">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ request.path }}"/>
+    <input name="lang" type="hidden"/>
+    {% get_language_info_list for LANGUAGES as languages %}
+    {% for language in languages %}
+        {% if not forloop.first %} | {% endif %}<a class="{% if LANGUAGE_CODE in language.code %}active{% endif %}" href="javascript:submitForm('{{ language.code }}')">{{ language.code|capfirst }}</a>
+    {% endfor %}
+</form>
+<script type="text/javascript">
+    function submitForm(lang) {
+        var form = document.getElementById("lang");
+        form.setAttribute("method", "POST");
+        form.lang.value = lang;
+        form.submit();
+    };
+</script>

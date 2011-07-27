@@ -1,14 +1,26 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block main %}
-{% if user.is_authenticated %}
-    <p>Logout</p>
+    <h2>Languages</h2>
+
+    {% trans  "Current language" %}: {% get_current_language as LANGUAGE_CODE %}
+    {{  LANGUAGE_CODE }}
+    <h3>{% trans "Form" %}</h3>
+    {% include "setlang_form.html" %}
+    <h3>{% trans "Links (via js)" %}</h3>
+    {% include "setlang_href.html" %}
+
+    <h2>{% trans "Profile"%} / {% trans "Login" %}</h2>
+
+    {% if user.is_authenticated %}
+        <p>{% trans "Logout" %}</p>
         <a href='{% url logout %}'>logout</a>
-    <p>Profile</p>
+        <p>Profile</p>
         <a href='{% url profile %}'>profile</a>
-    <p>Change password</p>
-    <a href='{% url change_password %}'>change password</a>
-{% else %}
-    <p>Login</p>
+        <p>Change password</p>
+        <a href='{% url change_password %}'>change password</a>
+    {% else %}
+        <p>{% trans "Login" %}</p>
         <a href='{% url login %}'>login</a>
-{% endif %}
+    {% endif %}
 {% endblock %}

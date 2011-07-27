@@ -40,5 +40,5 @@ class XPage(Page, RichText):
 
     def get_splash_image(self):
         if not self.splash_image.name:
-            return ""
+            return "No splash image"
         return "<img width='50px' class='img_block' src='%s'/>" % self.splash_image.url

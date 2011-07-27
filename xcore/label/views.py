@@ -10,7 +10,7 @@ logger = logging.getLogger("xcore")
 
 def get_label(request, key):
     logger.info("get label")
-    print "get label"
+    #print "get label"
     try: 
         response = cache.get(key)
         if response == None:
