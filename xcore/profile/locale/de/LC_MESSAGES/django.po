@@ -1,0 +1,80 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-17 11:08+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: templates/xcore/password_reset_complete.html:4
+#: templates/xcore/password_reset_complete.html:8
+msgid "Password reset complete"
+msgstr "Passwort erfolgreich zurückgesetz"
+
+#: templates/xcore/password_reset_complete.html:10
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr " Ihr Passwort wurde gesetzt. Sie können sch nun anmelden."
+
+#: templates/xcore/password_reset_complete.html:12
+msgid "Log in"
+msgstr "Anmelden"
+
+#: templates/xcore/password_reset_confirm.html:4
+msgid "Password reset"
+msgstr "Passwort zurücksetzen"
+
+#: templates/xcore/password_reset_confirm.html:10
+msgid "Enter new password"
+msgstr "Passwort eingeben"
+
+#: templates/xcore/password_reset_confirm.html:12
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+
+#: templates/xcore/password_reset_confirm.html:17
+msgid "New password:"
+msgstr "Neues Passwort:"
+
+#: templates/xcore/password_reset_confirm.html:19
+msgid "Confirm password:"
+msgstr "Neues Passwort bestätigen:"
+
+#: templates/xcore/password_reset_confirm.html:20
+msgid "Change my password"
+msgstr "Passwort ändern"
+
+#: templates/xcore/password_reset_confirm.html:25
+msgid "Password reset unsuccessful"
+msgstr "Passwort konnte nicht zurückgesetzt werden"
+
+#: templates/xcore/password_reset_confirm.html:27
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+
+#: templates/xcore/register.html:5 templates/xcore/register_complete.html:7
+msgid "Register"
+msgstr "Registrieren"
+
+#: templates/xcore/register_complete.html:12
+msgid "Registration complete"
+msgstr "Registration abgeschlossen"
+
+#: templates/xcore/register_complete.html:15
+msgid "Log in now"
+msgstr "Jetzt anmelden"
