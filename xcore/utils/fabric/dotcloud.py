@@ -21,7 +21,7 @@
 from fabric.api import *
 
 def dotcloud_upgrade_pip():
-    local("dotcloud run %(dotcloud_service)s -- pip install --upgrade -r current/requirements.txt" % env)
+    local("dotcloud run %(dotcloud_service)s -- pip install --upgrade -r current/%(pip_requirement_file)s" % env)
 
 def dotcloud_push():
     local("dotcloud push -b %(dotcloud_git_branch)s %(dotcloud_service)s ." % env)
@@ -36,8 +36,8 @@ def dotcloud_deploy_upgrade():
     dotcloud_restart()
 
 def dotcloud_syncdb():
-    local("dotcloud run %(dotcloud_service)s -- python current/manage.py syncdb" % env)
-    local("dotcloud run %(dotcloud_service)s -- python current/manage.py migrate" % env)
+    local("dotcloud run %(dotcloud_service)s -- python current/%(module)s/manage.py syncdb" % env)
+    local("dotcloud run %(dotcloud_service)s -- python current/%(module)s/manage.py migrate" % env)
 
 
 def dotcloud_restart():
