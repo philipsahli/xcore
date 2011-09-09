@@ -45,5 +45,4 @@ try:
 
     urlpatterns = _tmp_urlpatterns
 except ImportError, e:
-    print "here"
     _urlpatterns += _tmp_urlpatterns

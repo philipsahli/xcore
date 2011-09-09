@@ -6,7 +6,3 @@ import os
 django_settings = os.environ.get('DJANGO_SETTINGS_MODULE')
 if django_settings is not None:
     import urls
-    print "import xcore.urls"
-
-
-print "print in xcore.__init__"

@@ -24,7 +24,6 @@ from django.conf.urls.defaults import *
 
 # TODO: use original urls from mezz
 # Page patterns.
-print "xpages.urls"
 #urlpatterns = patterns("mezzanine.pages.views",
 #    url("^admin_page_ordering/$", "admin_page_ordering",
 #        name="admin_page_ordering"),
