@@ -20,4 +20,4 @@
 from fabric.api import *
 
 def manage_collectstatic():
-    run("python manage collectstatic")
+    run("python manage.py collectstatic")
