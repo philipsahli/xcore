@@ -27,8 +27,8 @@ from django.template import Context
 register = template.Library()
 
 def splash_list():
-    # TODO: show only pushlished
-    xpages = XPage.objects.all()
+    # TODO: show only pushlished
+    xpages = XPage.objects.all(published=True)
     t = get_template("xpages/splash_list.html")
     return t.render(Context({"xpages": xpages}))
 
