@@ -6,6 +6,7 @@ TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
+    ('Philip Sahli', 'ilipcito@gmail.com')
 )
 
 # add xcore module to path
@@ -92,7 +93,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'xcore.maintenance.middleware.MaintenanceMiddleware',
-    'xcore.forwarded.middleware.ForwardedMiddleware'
+    'xcore.forwarded.middleware.ForwardedMiddleware',
+    'xcore.common.middleware.EmailOnNotFoundMiddleware',
 )
 
 ROOT_URLCONF = 'django_example.urls'
@@ -116,7 +118,8 @@ INSTALLED_APPS = (
     'xcore.i18n',
     'xcore.label',
     'xcore.profile',
-    'xcore.maintenance'
+    'xcore.maintenance',
+    'debug_toolbar'
 )
 LANGUAGES = ("en", "de")
 
@@ -140,9 +143,9 @@ LOGGING = {
     'handlers': {
         'file': {
             'class':  'logging.handlers.RotatingFileHandler',
-            'level': 'INFO',
+            'level': 'ERROR',
             'formatter': 'simple', 
-            'filename': 'django_example.log',
+            'filename': 'django_example.loge',
         },
         'mail_admins': {
             'level': 'ERROR',
@@ -152,7 +155,7 @@ LOGGING = {
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['mail_admins', 'file'],
             'level': 'ERROR',
             'propagate': False,
         },
@@ -166,3 +169,5 @@ LOGGING = {
 ONLY_FORWARDED = False
 HOST_FORWARDED = "asdf"
 REDIRECT_FORWARDED = "http://127.0.0.1:8000"
+
+INTERNAL_IPS = ('127.0.01')

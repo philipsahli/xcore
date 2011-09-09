@@ -1,6 +1,5 @@
 from django.http import HttpResponse
 from django.conf import settings
-from django.utils.translation import ugettext as _
 
 import re
 
@@ -17,14 +16,6 @@ class MaintenanceMiddleware:
         create_maintenance_file()
 
     def process_request(self, request):
-        #print request.LANGUAGE_CODE
-        #print request.session
-        #print request.session.__dict__
-        #import django
-        #django.middleware.locale.LocaleMiddleware
-        #print _("Go")
-        #print _("Search")
-
         mezzanine_maintenance = False
         try:
             from mezzanine.conf import settings as mezzanine_settings
