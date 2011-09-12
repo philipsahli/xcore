@@ -20,16 +20,30 @@
 
 
 from django import template
+import django
 from xcore.mezz.xpages.models import XPage
 from django.template.loader import get_template
 from django.template import Context
 
 register = template.Library()
 
-def splash_list():
-    # TODO: show only pushlished
-    xpages = XPage.objects.published()
+def splash_list(context):
+    request = context['request']
+    page_branch = context['page_branch']
+    xpages = []
+    anon = (request.user.__class__==django.contrib.auth.models.AnonymousUser)
+    for page in page_branch:
+        try:
+            page.is_published = page.get_content_model().is_published()
+            if anon:
+                pass
+            else:
+                print "addd"
+                xpages.append(page.get_content_model())
+        except:
+            pass
+
     t = get_template("xpages/splash_list.html")
     return t.render(Context({"xpages": xpages}))
 
-register.simple_tag(splash_list)
+register.simple_tag(splash_list, takes_context=True)

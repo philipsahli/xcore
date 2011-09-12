@@ -42,3 +42,6 @@ class XPage(Page, RichText):
         if not self.splash_image.name:
             return "No splash image"
         return "<img width='50px' class='img_block' src='%s'/>" % self.splash_image.url
+
+    def is_published(self):
+        return (self in Page.objects.published())
