@@ -170,4 +170,6 @@ ONLY_FORWARDED = False
 HOST_FORWARDED = "asdf"
 REDIRECT_FORWARDED = "http://127.0.0.1:8000"
 
-INTERNAL_IPS = ('127.0.01')
+INTERNAL_IPS = ('127.0.0.1')
+
+XCORE_FONTS_DIR = [os.path.join(projectdir, "fonts_dir")]

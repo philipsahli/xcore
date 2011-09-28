@@ -19,18 +19,23 @@ def labelize(text="TEXT", args="black&22"):
     Return an img-tag to retrieve it with a a view.
     """
     al = args.split("&")
-    text_color = al[0]
-    text_size = al[1]
+    try:
+        text_color = al[0]
+        text_size = al[1]
+        text_font = al[2]
+    except:
+        raise Exception("wrong options for templatetag")
 
     text = text.encode("iso8859-1")
     m = hashlib.md5()
     m.update(text)
-    m.update(text)
+    m.update(text_size)
+    m.update(text_font)
     key =  m.hexdigest()
 
     if cache.get(key) is None or getattr(settings, "DEBUG"):
         #print "make label"
-        label = textimage.get_label(text, text_color, int(text_size))
+        label = textimage.get_label(text, text_color, int(text_size), text_font)
         response = HttpResponse(label.getvalue(), mimetype="image/png")
         cache.set(key, response, 120)
         

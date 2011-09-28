@@ -3,17 +3,30 @@
 from PIL import Image, ImageChops, ImageDraw,\
     ImageFilter, ImageFont, ImageColor
 from cStringIO import StringIO
+from django.conf import settings
+import fnmatch
 import os
 
 
-def get_label(text="TEXT", text_color="white", text_size=22):
+def get_label(text="TEXT", text_color="white", text_size=22, text_font="GeosansLight"):
 
-    mpath = os.path.dirname(os.path.abspath(__file__))
+    default_path = os.path.dirname(os.path.abspath(__file__))
+    path_list = getattr(settings, 'XCORE_FONTS_DIR', [])
+    path_list.append(default_path)
 
-    font = ImageFont.truetype(os.path.join(mpath, "font/Futura_BoldBT.ttf"), text_size)
-    #font = ImageFont.truetype(mpath+"/font/Futura_Extra_BlackBT.ttf", 22)
-    #font = ImageFont.load(mpath+"/pilfonts/timR24.pil")
+    fontfile = None
+    for path in path_list:
+        for root, dirnames, filenames in os.walk(path):
+            for filename in fnmatch.filter(filenames, text_font+".*"):
+                if filename.endswith('.ttf') or filename.endswith('.otf'):
+                    fontfile = os.path.join(root, filename)
+                    try:
+                        font = ImageFont.truetype(os.path.join(path, fontfile), text_size)
+                    except Exception, e:
+                        raise e("Font could not be loaded")
 
+    if not fontfile:
+        raise Exception("No font found for %s" % text_font)
     output = StringIO()
 
     im = Image.new("RGB", (500, 100), (0, 0, 0))
@@ -40,8 +53,6 @@ def get_label(text="TEXT", text_color="white", text_size=22):
         count+=1
     
     shadowc.save(output, "PNG")
-    print output
-    
     return output
 
 def inverted(color):

@@ -1,0 +1,13 @@
+ERROR Internal Server Error: /adsf
+Traceback (most recent call last):
+  File "/home/fatrix/virtualenvs/xcore/lib/python2.7/site-packages/django/core/handlers/base.py", line 150, in get_response
+    response = callback(request, **param_dict)
+  File "/home/fatrix/virtualenvs/xcore/lib/python2.7/site-packages/django/utils/decorators.py", line 93, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "/home/fatrix/virtualenvs/xcore/lib/python2.7/site-packages/django/views/defaults.py", line 18, in page_not_found
+    t = loader.get_template(template_name) # You need to create a 404.html template.
+  File "/home/fatrix/virtualenvs/xcore/lib/python2.7/site-packages/django/template/loader.py", line 157, in get_template
+    template, origin = find_template(template_name)
+  File "/home/fatrix/virtualenvs/xcore/lib/python2.7/site-packages/django/template/loader.py", line 138, in find_template
+    raise TemplateDoesNotExist(name)
+TemplateDoesNotExist: 404.html
