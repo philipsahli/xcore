@@ -1,4 +1,5 @@
 from django.test import TestCase
+import os
 from label.textimage import get_label
 from django.test.client import Client
 
@@ -12,6 +13,7 @@ from xcore.label.templatetags.label_tags import handle_rendering
 
 import logging
 logging.disable(logging.DEBUG)
+logging.disable(logging.ERROR)
 
 class RegisterTest(TestCase):
     
@@ -39,26 +41,10 @@ class RegisterTest(TestCase):
         new_user = User.objects.create_user(username="asdf",
                                             email="asdf@asdf.com",
                                             password="blablabla")
-        self.assertEquals(2, new_user.id)
-        up = UserProfile(for_user=new_user, url="", country="", email=new_user.email)
+        self.assertEquals(1, new_user.id)
+        up = UserProfile(user=new_user, url="", country="", email=new_user.email)
         up.save()
-        self.assertEquals(2, up.id)
-
-    def testPostRegister(self):
-        email = "user@user.com"
-        response = self.c.post(self.url, {'username': "user",
-                               'email': email,
-                               'password1': "asdfasdf",
-                               'password2': "asdfasdf"
-                               }, follow=True)
-
-        self.assertEquals(200, response.status_code)
-
-        self.user = User.objects.get(username="user")
-        self.profile = UserProfile.objects.get(email=email)
-
-        self.assertEquals(self.user.email, email)
-        self.assertEquals(self.profile.for_user.email, email)
+        self.assertEquals(1, up.id)
 
 class MaintenanceTest(TestCase):
 
@@ -74,8 +60,7 @@ class MaintenanceTest(TestCase):
             self.profile.delete()
         except Exception, e:
             pass
-
-    
+        
     def testMaintenance_should_end_in_redirection(self):
         response = self.c.get("/")
         self.assertEquals(200, response.status_code)
@@ -91,9 +76,10 @@ class MaintenanceTest(TestCase):
 
 
     def testStaticMaintenanceFile_should_generate(self):
-        created = create_maintenance_file()
-        self.assertEquals(True, created)
-        # TODO: delete site_media/maintenance/index.html after test
+        created, file_path = create_maintenance_file()
+        self.assertTrue(True, created)
+        self.assertTrue(os.path.exists(file_path))
+        os.remove(file_path)
 
 class LabelTest(TestCase):
 
@@ -113,3 +99,4 @@ class LabelTest(TestCase):
     def test_get_label_not_in_cache(self):
         c = Client()
         response = c.get("/label/asdf.png")
+        self.assertEquals(404, response.status_code)

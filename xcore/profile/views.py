@@ -74,7 +74,8 @@ def register(request):
                 utils.print_stacktrace()
                 new_user.delete()
         else:
-            print "INVALID"
+            logger.error(form.errors)
+            logger.error("invalid")
         
        
     else:

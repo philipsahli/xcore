@@ -38,7 +38,6 @@ class RegistrationForm(MathCaptchaForm):
         return self.cleaned_data
 
     def save(self):
-        print "saaaaaaaaaaaaaaaaaa"
         try:
             new_user = User.objects.create_user(username=self.cleaned_data['username'],
                                                 email=self.cleaned_data['email'],
