@@ -115,6 +115,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     'south',
+    'xcore',
     'xcore.i18n',
     'xcore.label',
     'xcore.profile',
@@ -141,6 +142,11 @@ LOGGING = {
 #        }
 #    },
     'handlers': {
+         'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
         'file': {
             'class':  'logging.handlers.RotatingFileHandler',
             'level': 'ERROR',
@@ -160,8 +166,8 @@ LOGGING = {
             'propagate': False,
         },
         'xcore': {
-            'handlers': ['file'],
-            'level': 'INFO'
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG'
         }
     }
 }
@@ -173,3 +179,11 @@ REDIRECT_FORWARDED = "http://127.0.0.1:8000"
 INTERNAL_IPS = ('127.0.0.1')
 
 XCORE_FONTS_DIR = [os.path.join(projectdir, "fonts_dir")]
+XCORE_LABELCONFIG = {
+    'default': {
+        'font': "CaviarDreams_Bold",
+        'size': "22",
+        'color': "#DF1F72",
+        #'color': "black",
+    }
+}

@@ -4,40 +4,75 @@ from django.utils.safestring import mark_safe
 from django.core.cache import cache
 from django.conf import settings
 from xcore.label import textimage
-
 import hashlib
 
 register = template.Library()
 
 import logging
-logger = logging.getLogger("xcore.label")
+logger = logging.getLogger("xcore")
 
 @register.filter
-def labelize(text="TEXT", args="black&22"):
+def labelize(text, args):
     """
     Create the label and put it in the cache.
     Return an img-tag to retrieve it with a a view.
     """
-    al = args.split("&")
-    try:
-        text_color = al[0]
-        text_size = al[1]
-        text_font = al[2]
-    except:
-        raise Exception("wrong options for templatetag")
+    qs = QueryDict(args)
 
-    text = text.encode("iso8859-1")
-    m = hashlib.md5()
-    m.update(text)
-    m.update(text_size)
-    m.update(text_font)
-    key =  m.hexdigest()
+    text_size = qs.get('size')
+    text_color = qs.get('color')
+    text_font = qs.get('font')
 
-    if cache.get(key) is None or getattr(settings, "DEBUG"):
-        #print "make label"
+    text_class = qs.get('class', "default")
+
+    #if (not text_size and not text_color and not text_font) or (not text_class):
+    #    raise Exception("configuration error in labelconfig, cannot labelize '%s'" % text)
+
+    labelconfig = getattr(settings, "XCORE_LABELCONFIG")
+
+    if not text_size:
+        text_size = labelconfig[text_class]['size']
+    if not text_font:
+        text_font = labelconfig[text_class]['font']
+    if not text_color:
+        text_color = labelconfig[text_class]['color']
+
+    tag, cached, key = handle_rendering(text, text_size, text_font, text_color)
+    logger.debug("handling "+key+" cached: "+str(cached))
+
+    return tag
+
+def handle_rendering(text, text_size, text_font, text_color):
+    key = calculate_key(str(text), text_size, text_font, text_color)
+
+    cached = get_label_by_key(key)
+    if not cached:
+        text = text.encode("iso8859-1")
         label = textimage.get_label(text, text_color, int(text_size), text_font)
         response = HttpResponse(label.getvalue(), mimetype="image/png")
-        cache.set(key, response, 120)
-        
+        cache_label(key, response)
+
+    return create_imgtag(key), cached, key
+
+
+def get_label_by_key(key, exists=False):
+    if cache.get(key) is None or getattr(settings, "DEBUG"):
+        exists = False
+    return exists
+
+def calculate_key(*args):
+    m = hashlib.md5()
+    m.update(args[0])
+    m.update(args[1])
+    m.update(args[2])
+    return  m.hexdigest()
+
+def create_imgtag(key):
     result = "<img src='/label/%s.png' />" % key
     return mark_safe(result)
+
+def cache_label(key, response):
+    cache.set(key, response, 120)
+
+class NotCachedException(Exception):
+    pass
