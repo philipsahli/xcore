@@ -43,5 +43,6 @@ class XPage(Page, RichText):
             return "No splash image"
         return "<img width='50px' class='img_block' src='%s'/>" % self.splash_image.url
 
+    @property
     def is_published(self):
-        return (self in Page.objects.published())
+        return (self in XPage.objects.published())

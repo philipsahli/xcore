@@ -38,7 +38,6 @@ def splash_list(context):
             if anon:
                 pass
             else:
-                print "addd"
                 xpages.append(page.get_content_model())
         except:
             pass
