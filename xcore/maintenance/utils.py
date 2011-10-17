@@ -22,17 +22,19 @@ from django.conf import settings
 
 from django.template.loader import render_to_string
 from django.template import Context
-
+import logging
+logger = logging.getLogger(name="xcore")
 
 def create_maintenance_file():
     media_root = getattr(settings, "MEDIA_ROOT")
     try:
         c = Context({"MEDIA_URL": settings.MEDIA_URL})
         rendered = render_to_string('maintenance.html', context_instance=c)
-        file = open(media_root + "/maintenance/index.html", "w")
+        fp = media_root + "/maintenance/index.html"
+        file = open(fp, "w")
         file.write(rendered.encode('utf-8'))
         file.close()
     except Exception, e:
-        print e
-        return False
-    return True
+        logger.error(e.message)
+        return False, None
+    return True, fp
