@@ -21,6 +21,6 @@
 
 from distutils.core import setup
 setup(name='xcore',
-      version='0.12',
+      version='0.12b',
       py_modules=['xcore'],
       )

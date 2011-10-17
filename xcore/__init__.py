@@ -1,5 +1,5 @@
 # Activate urls
-__version__ = "0.12"
+__version__ = "0.12b"
 import os
 
 # fix for xcore, hook urls only when django env is set
