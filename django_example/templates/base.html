@@ -6,22 +6,25 @@
 </head>
 <body>
 {% load label_tags %}
-<h1>{{ 'xcore example project (django)'|labelize:"#DF1F72&22&Futura_BoldBT" }}</h1>
+<h1>{{ 'xcore example project django'|labelize:"color=#DF1F72&size=22&font=Futura_BoldBT" }}</h1>
 {% block main %}
 {% endblock %}
 <h2>xcore labels</h2>
 <div style="padding-left: 20px; background-color: #e0ffff;">
 <h3 style="color: #DF1F72;">Font list</h3>
-<h3>{{ 'Font list'|labelize:"#ca1c67&22&Futura_BoldBT"}}</h3>
-<h4>{{ 'Futura BoldBT'|labelize:"#DF1F72&16&Futura_BoldBT" }}</h4>
-<h4>{{ 'GeosansLight'|labelize:"#DF1F72&16&GeosansLight" }}</h4>
-<h4>{{ 'Light up theWorld'|labelize:"#DF1F72&16&Light_up_the_World" }}</h4>
-<h4>{{ 'College Font'|labelize:"#DF1F72&16&College" }}</h4>
-<h4>{{ 'Varsity Regular'|labelize:"#DF1F72&16&varsity_regular" }}</h4>
-<h4>{{ 'Caviar Dreams'|labelize:"#DF1F72&16&CaviarDreams" }}</h4>
-<h4>{{ 'Sweet Home Oklahome'|labelize:"#DF1F72&28&SweetHomeOklahoma" }}</h4>
-<h4>{{ 'Puritan 2 Bold'|labelize:"#DF1F72&14&Puritan2Bold" }}</h4>
-<h4>{{ 'Consola Mono'|labelize:"#DF1F72&14&ConsolaMono" }}</h4>
+<h3>{{ 'Font list'|labelize:"class=default"}}</h3>
+<hr />
+<h4>{{ 'Futura BoldBT'|labelize:"color=#DF1F72&font=Futura_BoldBT" }}</h4>
+<h4>{{ 'GeosansLight'|labelize:"font=GeosansLight" }}</h4>
+
+<h4>{{ 'Light up theWorld'|labelize:"font=Light_up_the_World" }}</h4>
+<h4>{{ 'College Font'|labelize:"font=College" }}</h4>
+<h4>{{ 'Varsity Regular'|labelize:"font=varsity_regular" }}</h4>
+<h4>{{ 'Caviar Dreams'|labelize:"font=CaviarDreams" }}</h4>
+<h4>{{ 'Caviar Dreams Bold'|labelize:"font=CaviarDreams_Bold" }}</h4>
+<h4>{{ 'Sweet Home Oklahome'|labelize:"font=SweetHomeOklahoma" }}</h4>
+<h4>{{ 'Puritan 2 Bold'|labelize:"font=Puritan2Bold" }}</h4>
+<h4>{{ 'Consola Mono'|labelize:"font=ConsolaMono" }}</h4>
 </div>
 </body>
 </html>
