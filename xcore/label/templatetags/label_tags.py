@@ -72,7 +72,8 @@ def create_imgtag(key):
     return mark_safe(result)
 
 def cache_label(key, response):
-    cache.set(key, response, 120)
-
-class NotCachedException(Exception):
-    pass
+    try:
+        cache_seconds = settings.CACHES['default']['TIMEOUT']
+    except KeyError:
+        cache_seconds = 120
+    cache.set(key, response, cache_seconds )
