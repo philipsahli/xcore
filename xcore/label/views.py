@@ -8,6 +8,7 @@ import logging
 
 logger = logging.getLogger("xcore")
 
+
 def get_label(request, key):
     try:
         response = cache.get(key)

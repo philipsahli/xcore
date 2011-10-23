@@ -68,7 +68,7 @@ def calculate_key(*args):
     return  m.hexdigest()
 
 def create_imgtag(key):
-    result = "<img src='/label/%s.png' />" % key
+    result = "<img src='/label/%s.png' alt='%s'/>" % (key, key)
     return mark_safe(result)
 
 def cache_label(key, response):
