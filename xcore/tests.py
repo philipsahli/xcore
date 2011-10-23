@@ -13,7 +13,8 @@ from xcore.label.templatetags.label_tags import handle_rendering
 
 import logging
 logging.disable(logging.DEBUG)
-logging.disable(logging.ERROR)
+logging.disable(logging.WARN)
+#logging.disable(logging.ERROR)
 
 class RegisterTest(TestCase):
     
@@ -89,7 +90,7 @@ class LabelTest(TestCase):
 
     def test_template_tag(self):
         from xcore.label.templatetags.label_tags import labelize
-        self.assertEquals("<img src='/label/dfa44caf24f48564be2e034ba6d792ed.png' />", labelize("ASDF", "class=default"))
+        self.assertEquals("<img src='/label/041d9f6537686874037956004b35e074.png' />", labelize("ASDF", "class=default"))
 
     def test_direct_label(self):
         imgtag, cached, key = handle_rendering("ASDF", "22", "GeosansLight", "black")
@@ -100,3 +101,11 @@ class LabelTest(TestCase):
         c = Client()
         response = c.get("/label/asdf.png")
         self.assertEquals(404, response.status_code)
+
+    def test_get_label_cache_headers(self):
+        c = Client()
+        response = c.get("/label/702bfb96c014593f592195db9bda45ee.png")
+        print response
+        self.assertEquals(200, response.status_code)
+
+
