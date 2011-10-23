@@ -77,5 +77,4 @@ def _cache_label(key, response):
     cache.set(key, response, cache_seconds )
 
 def _debug_key(key, text):
-    return key+" ("+text+")"
-
+    return key+" ("+str(text)+")"
