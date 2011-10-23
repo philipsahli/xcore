@@ -38,22 +38,20 @@ def labelize(text, args):
         text_color = labelconfig[text_class]['color']
 
     tag, cached, key = handle_rendering(text, text_size, text_font, text_color)
-    logger.debug("handling "+key+" cached: "+str(cached))
-
+    logger.debug("handling "+_debug_key(key, text) +" cached: "+str(cached))
     return tag
 
 def handle_rendering(text, text_size, text_font, text_color):
-    key = calculate_key(str(text), text_size, text_font, text_color)
+    key = "xcore.label."+calculate_key(str(text), text_size, text_font, text_color)
 
     cached = get_label_by_key(key)
     if not cached:
         text = text.encode("iso8859-1")
         label = textimage.get_label(text, text_color, int(text_size), text_font)
         response = HttpResponse(label.getvalue(), mimetype="image/png")
-        cache_label(key, response)
+        _cache_label(key, response)
 
-    return create_imgtag(key), cached, key
-
+    return _create_imgtag(key), cached, key
 
 def get_label_by_key(key, exists=False):
     if cache.get(key) is None or getattr(settings, "DEBUG"):
@@ -67,13 +65,17 @@ def calculate_key(*args):
     m.update(args[2])
     return  m.hexdigest()
 
-def create_imgtag(key):
+def _create_imgtag(key):
     result = "<img src='/label/%s.png' alt='%s'/>" % (key, key)
     return mark_safe(result)
 
-def cache_label(key, response):
+def _cache_label(key, response):
     try:
         cache_seconds = settings.CACHES['default']['TIMEOUT']
     except KeyError:
         cache_seconds = 120
     cache.set(key, response, cache_seconds )
+
+def _debug_key(key, text):
+    return key+" ("+text+")"
+
