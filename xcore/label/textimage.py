@@ -5,25 +5,29 @@ from django.conf import settings
 import fnmatch
 import os
 
+default_path = os.path.dirname(os.path.abspath(__file__))
+path_list = getattr(settings, 'XCORE_FONTS_DIR', [])
+path_list.append("/home/fatrix/PycharmProjectsLocal/xcore/xcore/label/font")
+fonts = {}
+
+for path in path_list:
+    for root, dirnames, filenames in os.walk(path):
+        for file in filenames:
+            if file.endswith('.ttf') or file.endswith('.otf'):
+                name = file.replace(".ttf", "")
+                name = name.replace(".otf", "")
+                fonts[name] = os.path.join(root, file)
 
 def get_label(text="TEXT", text_color="white", text_size=22, text_font="GeosansLight"):
 
-    default_path = os.path.dirname(os.path.abspath(__file__))
-    path_list = getattr(settings, 'XCORE_FONTS_DIR', [])
     path_list.append(default_path)
 
-    fontfile = None
-    for path in path_list:
-        for root, dirnames, filenames in os.walk(path):
-            for filename in fnmatch.filter(filenames, text_font+".*"):
-                if filename.endswith('.ttf') or filename.endswith('.otf'):
-                    fontfile = os.path.join(root, filename)
-                    try:
-                        font = ImageFont.truetype(os.path.join(path, fontfile), text_size)
-                    except Exception, e:
-                        raise e
+    try:
+        font = ImageFont.truetype(fonts.get(text_font), text_size)
+    except Exception, e:
+        raise e
 
-    if not fontfile:
+    if not font:
         raise Exception("No font found for %s" % text_font)
     output = StringIO()
 

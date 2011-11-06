@@ -5,6 +5,7 @@ from django.core.cache import cache
 from django.conf import settings
 from xcore.label import textimage
 import hashlib
+from theme_incomplex.profiler import profile
 
 register = template.Library()
 
@@ -25,6 +26,10 @@ def labelize(text, args):
 
     text_class = qs.get('class', "default")
 
+
+    # resolve transation
+    text = unicode(text)
+
     #if (not text_size and not text_color and not text_font) or (not text_class):
     #    raise Exception("configuration error in labelconfig, cannot labelize '%s'" % text)
 
@@ -41,8 +46,9 @@ def labelize(text, args):
     logger.debug("handling "+_debug_key(key, text) +" cached: "+str(cached))
     return tag
 
+@profile("my_view.prof")
 def handle_rendering(text, text_size, text_font, text_color):
-    key = "xcore.label."+calculate_key(str(text), text_size, text_font, text_color)
+    key = "xcore.label."+calculate_key(text, text_size, text_font, text_color)
 
     cached = get_label_by_key(key)
     if not cached:
