@@ -5,11 +5,8 @@ from django.conf import settings
 import fnmatch
 import os
 
-default_path = os.path.dirname(os.path.abspath(__file__))
 path_list = getattr(settings, 'XCORE_FONTS_DIR', [])
-#path_list.append("/home/fatrix/PycharmProjectsLocal/xcore/xcore/label/font")
 path_list.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "font"))
-
 fonts = {}
 
 for path in path_list:
@@ -21,8 +18,6 @@ for path in path_list:
                 fonts[name] = os.path.join(root, file)
 
 def get_label(text="TEXT", text_color="white", text_size=22, text_font="GeosansLight"):
-
-    path_list.append(default_path)
 
     try:
         font = ImageFont.truetype(fonts.get(text_font), text_size)

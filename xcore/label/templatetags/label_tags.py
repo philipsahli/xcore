@@ -46,12 +46,12 @@ def labelize(text, args):
     logger.debug("handling "+_debug_key(key, text) +" cached: "+str(cached))
     return tag
 
-@profile("my_view.prof")
 def handle_rendering(text, text_size, text_font, text_color):
     key = "xcore.label."+calculate_key(text, text_size, text_font, text_color)
 
     cached = get_label_by_key(key)
     if not cached:
+        logger.debug("going to create label "+_debug_key(key, text))
         text = text.encode("iso8859-1")
         label = textimage.get_label(text, text_color, int(text_size), text_font)
         response = HttpResponse(label.getvalue(), mimetype="image/png")
