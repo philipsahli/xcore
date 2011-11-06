@@ -60,9 +60,9 @@ def handle_rendering(text, text_size, text_font, text_color):
     return _create_imgtag(key), cached, key
 
 def get_label_by_key(key, exists=False):
-    if cache.get(key) is None or getattr(settings, "DEBUG"):
-        exists = False
-    return exists
+    if not cache.get(key):
+        return False
+    return True
 
 def calculate_key(*args):
     m = hashlib.md5()
@@ -80,7 +80,8 @@ def _cache_label(key, response):
         cache_seconds = settings.CACHES['default']['TIMEOUT']
     except KeyError:
         cache_seconds = 120
-    cache.set(key, response, cache_seconds )
+    logger.debug("cached for "+str(cache_seconds)+"s: "+key)
+    cache.set(key, response, cache_seconds)
 
 def _debug_key(key, text):
     return key+" ("+str(text)+")"
