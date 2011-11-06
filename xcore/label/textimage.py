@@ -7,7 +7,9 @@ import os
 
 default_path = os.path.dirname(os.path.abspath(__file__))
 path_list = getattr(settings, 'XCORE_FONTS_DIR', [])
-path_list.append("/home/fatrix/PycharmProjectsLocal/xcore/xcore/label/font")
+#path_list.append("/home/fatrix/PycharmProjectsLocal/xcore/xcore/label/font")
+path_list.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "font"))
+
 fonts = {}
 
 for path in path_list:
