@@ -60,6 +60,7 @@ def handle_rendering(text, text_size, text_font, text_color):
         frmt = "%d %b %Y %H:%M:%S %Z"
         d = datetime.now()
         response['Last-Modified'] = d.strftime(frmt)
+        response['Content-Type'] = "image/png"
         _cache_label(key, response)
 
     return _create_imgtag(key), cached, key
