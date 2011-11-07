@@ -3,13 +3,17 @@ Created on Jan 22, 2011
 '''
 
 from django.core.cache import cache
-from django.http import Http404, HttpResponseServerError, HttpResponseNotFound
+from django.http import Http404, HttpResponseServerError, HttpResponseNotFound, HttpResponseNotModified
 import logging
+
 
 logger = logging.getLogger("xcore")
 
 
 def get_label(request, key):
+    if_modified_since = request.META.get('HTTP_IF_MODIFIED_SINCE')
+    if if_modified_since:
+        return HttpResponseNotModified()
     try:
         response = cache.get(key)
         if not response:

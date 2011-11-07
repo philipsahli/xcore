@@ -5,6 +5,7 @@ from django.core.cache import cache
 from django.conf import settings
 from xcore.label import textimage
 import hashlib
+from datetime import datetime
 from theme_incomplex.profiler import profile
 
 register = template.Library()
@@ -55,6 +56,10 @@ def handle_rendering(text, text_size, text_font, text_color):
         text = text.encode("iso8859-1")
         label = textimage.get_label(text, text_color, int(text_size), text_font)
         response = HttpResponse(label.getvalue(), mimetype="image/png")
+        # Last-Modified:Mon, 17 Oct 2011 12:58:54 GMT
+        frmt = "%d %b %Y %H:%M:%S %Z"
+        d = datetime.now()
+        response['Last-Modified'] = d.strftime(frmt)
         _cache_label(key, response)
 
     return _create_imgtag(key), cached, key
