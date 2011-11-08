@@ -85,7 +85,7 @@ def _cache_label(key, response):
     try:
         cache_seconds = settings.CACHES['default']['TIMEOUT']
     except KeyError:
-        cache_seconds = 120
+        cache_seconds = 1500
     logger.debug("cached for "+str(cache_seconds)+"s: "+key)
     cache.set(key, response, cache_seconds)
 
