@@ -5,17 +5,22 @@ from django.conf import settings
 import fnmatch
 import os
 
-path_list = getattr(settings, 'XCORE_FONTS_DIR', [])
-path_list.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "font"))
+
+# global var
 fonts = {}
 
-for path in path_list:
-    for root, dirnames, filenames in os.walk(path):
-        for file in filenames:
-            if file.endswith('.ttf') or file.endswith('.otf'):
-                name = file.replace(".ttf", "")
-                name = name.replace(".otf", "")
-                fonts[name] = os.path.join(root, file)
+# setup of font dirs
+def setup_font_list():
+    path_list = getattr(settings, 'XCORE_FONTS_DIR', [])
+    path_list.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "font"))
+
+    for path in path_list:
+        for root, dirnames, filenames in os.walk(path):
+            for file in filenames:
+                if file.endswith('.ttf') or file.endswith('.otf'):
+                    name = file.replace(".ttf", "")
+                    name = name.replace(".otf", "")
+                    fonts[name] = os.path.join(root, file)
 
 def get_label(text="TEXT", text_color="white", text_size=22, text_font="GeosansLight"):
 
@@ -62,7 +67,7 @@ def get_label(text="TEXT", text_color="white", text_size=22, text_font="GeosansL
         shadowc.filter(ImageFilter.BLUR)
         count+=1
     
-    shadowc.save(output, "PNG")
+    shadowc.save(output, "PNG", quality=50)
     return output
 
 def inverted(color):
@@ -81,4 +86,6 @@ def darken(rgb, darken_factor=0.2, rgb_darker=[]):
            v=255
         rgb_darker.append(v)
     return rgb_darker
+
+setup_font_list = setup_font_list()
 
