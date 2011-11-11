@@ -6,6 +6,7 @@ from django.core.cache import cache
 from django.views.decorators.http import condition
 from django.http import HttpResponse, Http404, HttpResponseServerError, HttpResponseNotFound, HttpResponseNotModified
 import logging
+import datetime
 
 
 logger = logging.getLogger("xcore")
@@ -33,6 +34,9 @@ def get_label(request, key):
         logger.error(e.message)
         return HttpResponseServerError()
     response = HttpResponse(v['label'].getvalue(), mimetype="image/png")
+    frmt = "%d %b %Y %H:%M:%S %Z"
+    expires = datetime.datetime.today() +datetime.timedelta(30)
+    response['Expires'] = expires.strftime(frmt)
     return response
 
 
