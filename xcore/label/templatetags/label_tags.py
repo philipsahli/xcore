@@ -55,13 +55,7 @@ def handle_rendering(text, text_size, text_font, text_color):
         logger.debug("going to create label "+_debug_key(key, text))
         text = text.encode("iso8859-1")
         label = textimage.get_label(text, text_color, int(text_size), text_font)
-        response = HttpResponse(label.getvalue(), mimetype="image/png")
-        # Last-Modified:Mon, 17 Oct 2011 12:58:54 GMT
-        frmt = "%d %b %Y %H:%M:%S %Z"
-        d = datetime.now()
-        response['Last-Modified'] = d.strftime(frmt)
-        response['Content-Type'] = "image/png"
-        _cache_label(key, response)
+        _cache_label(key, label)
 
     return _create_imgtag(key), cached, key
 
@@ -81,13 +75,27 @@ def _create_imgtag(key):
     result = "<img src='/label/%s.png' alt='%s'/>" % (key, key)
     return mark_safe(result)
 
-def _cache_label(key, response):
+def _cache_label(key, label):
+    frmt = "%d %b %Y %H:%M:%S %Z"
+    d = datetime.now()
+
+    etag = hashlib.md5()
+    etag.update(key)
+    etag.update(d.strftime(frmt))
+    s_etag = str(etag.hexdigest())
+
+    v = {
+        'last_modified': d.now(),
+        'label': label,
+        'etag': s_etag
+    }
+
     try:
         cache_seconds = settings.CACHES['default']['TIMEOUT']
     except KeyError:
         cache_seconds = 1500
     logger.debug("cached for "+str(cache_seconds)+"s: "+key)
-    cache.set(key, response, cache_seconds)
+    cache.set(key, v, cache_seconds)
 
 def _debug_key(key, text):
     return key+" ("+str(text)+")"

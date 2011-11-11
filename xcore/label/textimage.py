@@ -1,10 +1,9 @@
 from PIL import Image, ImageChops, ImageDraw,\
     ImageFilter, ImageFont, ImageColor
-from cStringIO import StringIO
+from StringIO import StringIO
 from django.conf import settings
 import fnmatch
 import os
-
 
 # global var
 fonts = {}
