@@ -21,7 +21,7 @@
         <a href='{% url change_password %}'>change password</a>
     {% else %}
         <p>{% trans "Login" %}</p>
-        <a href='{% url login %}'>login</a>
+        {# <a href='{% url login %}'>login</a> #}
     {% endif %}
     <h2>xcore labels</h2>
     <div style="padding-left: 20px; background-color: #e0ffff;">
@@ -29,16 +29,82 @@
 
         <h3>{{ 'Font list'|labelize:"class=default" }}</h3>
         <hr/>
-        <h4>{{ 'Futura BoldBT'|labelize:"color=#DF1F72&font=Futura_BoldBT" }}</h4>
-        <h4>{{ 'GeosansLight'|labelize:"font=GeosansLight" }}</h4>
+        <h4>{{ 'Futura Md BT Bold'|labelize:"color=#DF1F72&font=Futura Md BT Bold" }}</h4>
+        <h4>{{ 'GeosansLight'|labelize:"font=GeosansLight Regular" }}</h4>
 
-        <h4>{{ 'Light up theWorld'|labelize:"font=Light_up_the_World" }}</h4>
-        <h4>{{ 'College Font'|labelize:"font=College" }}</h4>
-        <h4>{{ 'Varsity Regular'|labelize:"font=varsity_regular" }}</h4>
-        <h4>{{ 'Caviar Dreams'|labelize:"font=CaviarDreams" }}</h4>
-        <h4>{{ 'Caviar Dreams Bold'|labelize:"font=CaviarDreams_Bold" }}</h4>
-        <h4>{{ 'Sweet Home Oklahome'|labelize:"font=SweetHomeOklahoma" }}</h4>
-        <h4>{{ 'Puritan 2 Bold'|labelize:"font=Puritan2Bold" }}</h4>
-        <h4>{{ 'Consola Mono'|labelize:"font=ConsolaMono" }}</h4>
+        <h4>{{ 'Light up theWorld'|labelize:"font=Light up the World Regular" }}</h4>
+        <h4>{{ 'College Font'|labelize:"font=College Regular" }}</h4>
+        <h4>{{ 'Varsity Regular'|labelize:"font=Varsity Regular Varsity Regular" }}</h4>
+        <h4>{{ 'Caviar Dreams'|labelize:"font=Caviar Dreams Regular" }}</h4>
+        <h4>{{ 'Caviar Dreams Bold'|labelize:"font=Caviar Dreams Bold" }}</h4>
+        <h4>{{ 'Sweet Home Oklahome'|labelize:"font=Sweet Home Oklahoma Regular" }}</h4>
+        <h4>{{ 'Puritan 2 Bold'|labelize:"font=Puritan 2.0 Bold" }}</h4>
+        <h4>{{ 'Consola Mono'|labelize:"font=Consola Mono Book" }}</h4>
+        <h4>{{ 'AveriaSans Regular'|labelize:"font=Averia Sans Regular" }}</h4>
+        <h4>{{ 'Bravenewera BNEG98'|labelize:"font=Brave New Era G98 Regular&size=30" }}</h4>
+        <h4>{{ 'Galapogos'|labelize:"font=Galapogos BRK Normal&size=30" }}</h4>
+        <h4>{{ 'HiLo-Deco'|labelize:"font=HiLo-Deco Deco&size=30" }}</h4>
+        <h4>{{ 'Procyon'|labelize:"font=Procyon Regular&size=30" }}</h4>
+        <h4>{{ 'Quarterly Thick'|labelize:"font=Quarterly Thick BRK Normal&size=30" }}</h4>
+        <h4>{{ 'Quarterly Thin'|labelize:"font=Quarterly Thin BRK Normal&size=30" }}</h4>
+        <h4>{{ 'Rambling'|labelize:"font=Rambling BRK Normal&size=30" }}</h4>
+        {# <h4>{{ 'SF Burlington Script'|labelize:"font=SF Burlington Script'&size=30" }}</h4> #}
+        <h4>Unicons {{ 'Unicons abcdefghijklmnopqrstuvwxyz'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'Unicons 0123456789'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'Unicons a'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'A'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'b'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'B'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'c'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'C'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'd'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'D'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'e'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'E'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'f'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'F'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'g'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'G'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'h'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'H'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'i'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'I'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'k'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'K'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'l'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'L'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'm'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'M'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'n'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'N'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'o'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'O'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'p'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'P'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'q'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'Q'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'r'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'R'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 's'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'S'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 't'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'T'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'u'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'U'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'v'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'V'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'w'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'W'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'x'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'X'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'y'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'Y'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'z'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'Z'|labelize:"font=UniCons Medium&size=30" }}</h4>
+        <h4>{{ 'SFCartoon'|labelize:"font=SF Cartoonist Hand Regular&size=30" }}</h4>
+        <h4>{{ 'SFScribbled'|labelize:"font=SF Scribbled Sans SC Regular&size=30" }}</h4>
+        <h4>{{ 'SFTheaminGothic'|labelize:"font=SF Theramin Gothic Regular&size=30" }}</h4>
+
     </div>
+
 {% endblock %}

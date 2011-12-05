@@ -6,7 +6,7 @@ from django.conf import settings
 from xcore.label import textimage
 import hashlib
 from datetime import datetime
-from theme_incomplex.profiler import profile
+from xcore.utils.profiler import profile
 
 register = template.Library()
 

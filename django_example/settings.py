@@ -151,7 +151,7 @@ LOGGING = {
             'class':  'logging.handlers.RotatingFileHandler',
             'level': 'ERROR',
             'formatter': 'simple', 
-            'filename': 'django_example.loge',
+            'filename': 'django_example.log',
         },
         'mail_admins': {
             'level': 'ERROR',
@@ -181,9 +181,15 @@ INTERNAL_IPS = ('127.0.0.1')
 XCORE_FONTS_DIR = [os.path.join(projectdir, "fonts_dir")]
 XCORE_LABELCONFIG = {
     'default': {
-        'font': "CaviarDreams_Bold",
+        'font': "Caviar Dreams Bold",
         'size': "22",
         'color': "#DF1F72",
         #'color': "black",
+    }
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     }
 }

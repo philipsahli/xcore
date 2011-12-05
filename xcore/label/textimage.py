@@ -17,16 +17,24 @@ def setup_font_list():
         for root, dirnames, filenames in os.walk(path):
             for file in filenames:
                 if file.endswith('.ttf') or file.endswith('.otf'):
-                    name = file.replace(".ttf", "")
-                    name = name.replace(".otf", "")
-                    fonts[name] = os.path.join(root, file)
+                    f_name = file.replace(".ttf", "")
+                    f_name = file.replace(".otf", "")
+                    font = ImageFont.truetype(os.path.join(root, file), 12)
+                    name = "%s %s" % (font.getname()[0], font.getname()[1])
+
+                    f_dict = {'name': name,
+                              'file': os.path.join(root, file)
+                    }
+                    fonts[name] = f_dict
+
 
 def get_label(text="TEXT", text_color="white", text_size=22, text_font="GeosansLight"):
 
-    try:
-        font = ImageFont.truetype(fonts.get(text_font), text_size)
-    except Exception, e:
-        raise e
+    font_config = fonts.get(text_font)
+    if not font_config:
+        raise Exception("Font %s not found" % text_font)
+
+    font = ImageFont.truetype(font_config['file'], text_size)
 
     if not font:
         raise Exception("No font found for %s" % text_font)
