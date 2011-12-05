@@ -37,6 +37,6 @@ def create_maintenance_file():
         file.write(rendered.encode('utf-8'))
         file.close()
     except Exception, e:
-        logger.error(e.message)
+        logger.error(e)
         return False, None
     return True, fp
