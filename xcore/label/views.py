@@ -1,16 +1,10 @@
-'''
-Created on Jan 22, 2011
-'''
-
 from django.core.cache import cache
 from django.views.decorators.http import condition
 from django.http import HttpResponse, Http404, HttpResponseServerError, HttpResponseNotFound, HttpResponseNotModified
 import logging
 import datetime
 
-
 logger = logging.getLogger("xcore")
-
 
 # return date
 def last_modified(request, key):
