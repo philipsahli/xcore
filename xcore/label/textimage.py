@@ -28,7 +28,7 @@ def setup_font_list():
                     fonts[name] = f_dict
 
 
-def get_label(text="TEXT", text_color="white", text_size=22, text_font="GeosansLight"):
+def get_label(text="TEXT", text_color="white", text_size=22, text_font="GeosansLight Regular"):
 
     font_config = fonts.get(text_font)
     if not font_config:
