@@ -42,7 +42,7 @@ _tmp_urlpatterns += patterns("",
 
 try:
     import mezzanine
-
     urlpatterns = _tmp_urlpatterns
 except ImportError, e:
     _urlpatterns += _tmp_urlpatterns
+

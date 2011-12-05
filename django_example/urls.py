@@ -17,5 +17,6 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
+    (r"^label/(?P<key>.*).png", "xcore.label.views.get_label"),
 
 )
