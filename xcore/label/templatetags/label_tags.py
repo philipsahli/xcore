@@ -13,6 +13,8 @@ register = template.Library()
 import logging
 logger = logging.getLogger("xcore")
 
+IMG_TAG="<img src='/label/%s.png' title='%s' alt='%s'/>"
+
 @register.filter
 def labelize(text, args):
     """
@@ -57,7 +59,7 @@ def handle_rendering(text, text_size, text_font, text_color):
         label = textimage.get_label(text, text_color, int(text_size), text_font)
         _cache_label(key, label)
 
-    return _create_imgtag(key), cached, key
+    return _create_imgtag(key, text), cached, key
 
 def get_label_by_key(key, exists=False):
     if not cache.get(key):
@@ -71,8 +73,8 @@ def calculate_key(*args):
     m.update(args[2])
     return  m.hexdigest()
 
-def _create_imgtag(key):
-    result = "<img src='/label/%s.png' alt='%s'/>" % (key, key)
+def _create_imgtag(key, text):
+    result = IMG_TAG % (key, text, text)
     return mark_safe(result)
 
 def _cache_label(key, label):

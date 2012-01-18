@@ -9,12 +9,15 @@ from profile.models import UserProfile
 from django.conf import settings
 from maintenance.middleware import MaintenanceMiddleware
 from maintenance.utils import create_maintenance_file
-from xcore.label.templatetags.label_tags import handle_rendering
+from xcore.label.templatetags.label_tags import labelize, handle_rendering, IMG_TAG
 
 import logging
-#logging.disable(logging.DEBUG)
-#logging.disable(logging.WARN)
-#logging.disable(logging.ERROR)
+logging.disable(logging.DEBUG)
+logging.disable(logging.WARN)
+logging.disable(logging.ERROR)
+
+TEXT = "ASDF"
+KEY = "xcore.label.e04dd8c26c64a4756fc3eda2e619d1de"
 
 class RegisterTest(TestCase):
     
@@ -22,9 +25,8 @@ class RegisterTest(TestCase):
     c = None
     user = None
     profile = None
-    
-    def setUp(self):
 
+    def setUp(self):
         self.c = Client()
         
     def tearDown(self):
@@ -82,29 +84,4 @@ class MaintenanceTest(TestCase):
         self.assertTrue(os.path.exists(file_path))
         os.remove(file_path)
 
-class LabelTest(TestCase):
-
-    def test_get_label(self):
-        label = get_label(text="HalloWelt")
-        self.assertEquals("StringIO", label.__class__.__name__)
-
-    def test_template_tag(self):
-        from xcore.label.templatetags.label_tags import labelize
-        self.assertEquals("<img src='/label/xcore.label.041d9f6537686874037956004b35e074.png' alt='xcore.label.041d9f6537686874037956004b35e074'/>", labelize("ASDF", "class=default"))
-
-    def test_direct_label(self):
-        imgtag, cached, key = handle_rendering("ASDF", "22", "GeosansLight", "black")
-        self.assertEqual("<img src='/label/xcore.label.702bfb96c014593f592195db9bda45ee.png' alt='xcore.label.702bfb96c014593f592195db9bda45ee'/>", imgtag)
-        self.assertEqual(cached, True)
-
-    def test_get_label_not_in_cache(self):
-        c = Client()
-        response = c.get("/label/asdf.png")
-        self.assertEquals(404, response.status_code)
-
-    def test_get_label_cache_headers(self):
-        c = Client()
-        response = c.get("/label/xcore.label.702bfb96c014593f592195db9bda45ee.png")
-        self.assertEquals(200, response.status_code)
-
-
+from xcore.label.tests import *
