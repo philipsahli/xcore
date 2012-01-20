@@ -75,7 +75,7 @@ def get_label(text="TEXT", text_color="white", text_size=22, text_font="GeosansL
         count+=1
     
     shadowc.save(output, "PNG", quality=50)
-    return output
+    return output, {'width': w+3, 'height': h+3}
 
 def inverted(color):
     rgb = ImageColor.getrgb(color)

@@ -8,18 +8,24 @@ logger = logging.getLogger("xcore")
 
 # return date
 def last_modified(request, key):
-    return cache.get(key)['last_modified']
+    c = cache.get(key)
+    if not c:
+        return
+    return c['last_modified']
 
 # return etag
 def etag(request, key):
-    return cache.get(key)['etag']
+    c = cache.get(key)
+    if not c:
+        return
+    return c['etag']
 
 @condition(etag_func=etag, last_modified_func=last_modified)
 def get_label(request, key):
     try:
         v = cache.get(key)
         if not v:
-            logger.error("label %s not found in cache" % key)
+            logger.warn("label %s not found in cache" % key)
             return HttpResponseNotFound()
         else:
             logger.info("get label %s from cache" % key)
