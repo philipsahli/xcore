@@ -13,7 +13,7 @@ register = template.Library()
 import logging
 logger = logging.getLogger("xcore")
 
-IMG_TAG="<img src='/label/%s.png' title='%s' alt='%s'/>"
+IMG_TAG="<img src='/label/%s.png' title='%s' alt='%s' width='%s' height='%s'/>"
 
 @register.filter
 def labelize(text, args):
@@ -52,19 +52,24 @@ def labelize(text, args):
 def handle_rendering(text, text_size, text_font, text_color):
     key = "xcore.label."+calculate_key(text, text_size, text_font, text_color)
 
-    cached = get_label_by_key(key)
-    if not cached:
+    label = get_label_by_key(key)
+
+    if not label:
         logger.debug("going to create label "+_debug_key(key, text))
         text = text.encode("iso8859-1")
-        label = textimage.get_label(text, text_color, int(text_size), text_font)
-        _cache_label(key, label)
+        label, dimensions = textimage.get_label(text, text_color, int(text_size), text_font)
+        tag = _create_imgtag(key, text, dimensions)
+        label = _cache_label(key, label, tag)
 
-    return _create_imgtag(key, text), cached, key
+    return label['img_tag'], bool(label['img_tag']), key
 
-def get_label_by_key(key, exists=False):
+def is_label_cached(key, exists=False):
     if not cache.get(key):
         return False
     return True
+
+def get_label_by_key(key, exists=False):
+    return cache.get(key)
 
 def calculate_key(*args):
     m = hashlib.md5()
@@ -73,11 +78,12 @@ def calculate_key(*args):
     m.update(args[2])
     return  m.hexdigest()
 
-def _create_imgtag(key, text):
-    result = IMG_TAG % (key, text, text)
+
+def _create_imgtag(key, text, dimensions):
+    result = IMG_TAG % (key, text, text, dimensions['width'], dimensions['height'])
     return mark_safe(result)
 
-def _cache_label(key, label):
+def _cache_label(key, label, tag):
     frmt = "%d %b %Y %H:%M:%S %Z"
     d = datetime.now()
 
@@ -89,6 +95,7 @@ def _cache_label(key, label):
     v = {
         'last_modified': d.now(),
         'label': label,
+        'img_tag': tag,
         'etag': s_etag
     }
 
@@ -98,6 +105,8 @@ def _cache_label(key, label):
         cache_seconds = 1500
     logger.debug("cached for "+str(cache_seconds)+"s: "+key)
     cache.set(key, v, cache_seconds)
+
+    return v
 
 def _debug_key(key, text):
     return key+" ("+str(text)+")"
