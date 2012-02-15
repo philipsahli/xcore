@@ -1,20 +1,16 @@
-__author__ = 'fatrix'
+from django.core.mail import mail_admins
 from django.core.exceptions import MiddlewareNotUsed
 from django.http import HttpResponseNotFound
 from django.conf import settings
-import logging
-import pprint
-
-logger = logging.getLogger("xcore")
 
 class EmailOnNotFoundMiddleware(object):
     def __init__(self):
-        if not settings.DEBUG:
+        if settings.DEBUG:
             raise MiddlewareNotUsed()
 
     def process_response(self, request, response):
-        pp = pprint.PrettyPrinter(indent=4)
-        #if isinstance(response, HttpResponseNotFound):
-        #    logging.error(pp.pprint(response.__dict__))
+        if isinstance(response, HttpResponseNotFound):
+            if request.path != '/favicon.ico':
+                mail_admins("404 happend on URL %s" % request.path, "pp.pprint(request.__dict__")
         return response
   

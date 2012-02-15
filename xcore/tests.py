@@ -1,15 +1,12 @@
 from django.test import TestCase
 import os
-from label.textimage import get_label
 from django.test.client import Client
-
 from django.contrib.auth.models import User
+from django.core import mail
 from profile.models import UserProfile
-
 from django.conf import settings
 from maintenance.middleware import MaintenanceMiddleware
 from maintenance.utils import create_maintenance_file
-from xcore.label.templatetags.label_tags import labelize, handle_rendering, IMG_TAG
 
 import logging
 logging.disable(logging.DEBUG)
@@ -84,4 +81,12 @@ class MaintenanceTest(TestCase):
         self.assertTrue(os.path.exists(file_path))
         os.remove(file_path)
 
-from xcore.label.tests import *
+
+class EmailOnNotFoundTest(TestCase):
+
+    def testMail_is_sent(self):
+        c = Client()
+        settings.DEBUG = False
+        response = c.get("/doesnexist/")
+        self.assertEquals(404, response.status_code)
+        self.assertEquals(len(mail.outbox), 1)
