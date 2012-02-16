@@ -85,11 +85,8 @@ The paths for admin and __debug__ are excluded for this functionality, therefore
 can still login into Django Admin and the HTML-File which can be displayed is available under the
 URL '/media/maintenance/index.html'
 
-In Mezzanine the setting is registered as persistant settings.
+In Mezzanine the setting is registered as editable setting in the admin.
 
-Internationalization
---------------------
-# TODO: to document
 
 XPages for Mezzanine
 ====================

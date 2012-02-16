@@ -1,29 +1,9 @@
 {% extends "base.html" %}
-{% load i18n label_tags %}
+{% load label_tags %}
 {% block main %}
     <h2>Languages</h2>
 
-    {% trans "Current language" %}: {% get_current_language as LANGUAGE_CODE %}
-    {{ LANGUAGE_CODE }}
-    <h3>{% trans "Form" %}</h3>
-    {% include "setlang_form.html" %}
-    <h3>{% trans "Links (via js)" %}</h3>
-    {% include "setlang_href.html" %}
-
-    <h2>{% trans "Profile" %} / {% trans "Login" %}</h2>
-
-    {% if user.is_authenticated %}
-        <p>{% trans "Logout" %}</p>
-        <a href='{% url logout %}'>logout</a>
-        <p>Profile</p>
-        <a href='{% url profile %}'>profile</a>
-        <p>Change password</p>
-        <a href='{% url change_password %}'>change password</a>
-    {% else %}
-        <p>{% trans "Login" %}</p>
-        {# <a href='{% url login %}'>login</a> #}
-    {% endif %}
-    <h2>xcore labels</h2>
+    <h2>XCore labels</h2>
     <div style="padding-left: 20px; background-color: #e0ffff;">
         <h3 style="color: #DF1F72;">Font list</h3>
 

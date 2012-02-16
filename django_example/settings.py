@@ -14,9 +14,6 @@ import sys
 sys.path.append("..")
 projectdir = os.path.abspath(os.getcwd())
 
-# AUTH_PROFILE_MODULE - could go to xcore module
-AUTH_PROFILE_MODULE = 'profile.UserProfile'
-
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'ilipcito@gmail.com'
@@ -102,9 +99,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'south',
     'xcore',
-    'xcore.i18n',
     'xcore.label',
-    'xcore.profile',
     'xcore.maintenance',
     'debug_toolbar'
 )
@@ -173,3 +168,8 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     }
 }
+
+try:
+    from local_settings import *
+except Exception, e:
+    pass

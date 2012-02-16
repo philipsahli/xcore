@@ -1,9 +1,7 @@
 from django.test import TestCase
 import os
 from django.test.client import Client
-from django.contrib.auth.models import User
 from django.core import mail
-from profile.models import UserProfile
 from django.conf import settings
 from maintenance.middleware import MaintenanceMiddleware
 from maintenance.utils import create_maintenance_file
@@ -15,47 +13,6 @@ logging.disable(logging.ERROR)
 
 TEXT = "ASDF"
 KEY = "xcore.label.e04dd8c26c64a4756fc3eda2e619d1de"
-
-class RegisterTest(TestCase):
-    
-    url = "/register/"
-    c = None
-    user = None
-    profile = None
-
-    def setUp(self):
-        self.c = Client()
-        
-    def tearDown(self):
-        try:
-            self.user.delete()
-            self.profile.delete()
-        except Exception, e:
-            pass
-
-    def testRegister(self):
-
-        response = self.c.get(self.url, follow=True)
-        self.assertEquals(200, response.status_code)
-
-        new_user = User.objects.create_user(username="asdf",
-                                            email="asdf@asdf.com",
-                                            password="blablabla")
-        self.assertEquals(1, new_user.id)
-        up = UserProfile(user=new_user, url="", country="", email=new_user.email)
-        up.save()
-        self.assertEquals(1, up.id)
-
-    def testForm(self):
-        response = self.c.get(self.url)
-        import re
-        regex = re.compile(r'.*(input).*', re.MULTILINE)
-        p = regex.finditer(response.content)
-        for p1 in [p.groups()]:
-            print p1
-        print response.content
-        #m = p.match(response.content)
-        #print m.group()
 
 class MaintenanceTest(TestCase):
 
