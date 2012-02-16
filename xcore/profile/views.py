@@ -13,11 +13,6 @@ from xcore.profile.models import UserProfile
 
 logger = logging.getLogger("xcore")
 
-#def logout(request):
-#    auth.logout(request)
-#    # Redirect to a success page.
-#    return render_to_response('xcore/logout.html', {})
-
 def loggedin(request):
     logger.info(str(request.user)+" logged in")
     return render_to_response('xcore/logged_in.html', {}, context_instance = RequestContext(request))
@@ -41,8 +36,6 @@ def profile(request):
             f.save()
             user = User.objects.get(id=request.user.id)
             user.email = request.POST['email']
-            #print request.POST['email']
-            #print user.email
             user.save()
             return render_to_response('xcore/profile_changed.html', context_instance = RequestContext(request))
     else:
@@ -64,9 +57,9 @@ def register(request):
                 up.save()
                 subject = " new user: %s" % request.REQUEST['username']
                 msg = "admin-link: /admin/profile/user/"
-                mail_admins(subject, msg, fail_silently=False)
+                mail_admins(subject, msg, fail_silently=True)
                 logger.info("user registered")
-                return render_to_response('xcore/register_complete.html', context_instance=RequestContext(request))
+                return render_to_response('xcore/register_complete.html', {}, context_instance=RequestContext(request))
                 
             except Exception, e:
                 logger.error("registration failed")

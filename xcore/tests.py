@@ -46,6 +46,17 @@ class RegisterTest(TestCase):
         up.save()
         self.assertEquals(1, up.id)
 
+    def testForm(self):
+        response = self.c.get(self.url)
+        import re
+        regex = re.compile(r'.*(input).*', re.MULTILINE)
+        p = regex.finditer(response.content)
+        for p1 in [p.groups()]:
+            print p1
+        print response.content
+        #m = p.match(response.content)
+        #print m.group()
+
 class MaintenanceTest(TestCase):
 
     c = None
