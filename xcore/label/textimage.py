@@ -1,15 +1,19 @@
+# encoding: utf-8
+
 from PIL import Image, ImageChops, ImageDraw,\
     ImageFilter, ImageFont, ImageColor
 from StringIO import StringIO
 from django.conf import settings
-import fnmatch
 import os
 
 # global var
 fonts = {}
 
-# setup of font dirs
 def setup_font_list():
+    """
+    setup function for the font_list; searches for fontfiles in the 'font'-directory in the xcore-app
+    and in the project-specific directory specified in settings.XCORE_FONTS_DIR
+    """
     path_list = getattr(settings, 'XCORE_FONTS_DIR', [])
     path_list.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "font"))
 
@@ -29,6 +33,9 @@ def setup_font_list():
 
 
 def get_label(text="TEXT", text_color="white", text_size=22, text_font="GeosansLight Regular"):
+    """
+    Creates the label
+    """
 
     font_config = fonts.get(text_font)
     if not font_config:
@@ -44,12 +51,12 @@ def get_label(text="TEXT", text_color="white", text_size=22, text_font="GeosansL
 
     im = Image.new("RGB", (500, 100), (0, 0, 0))
     alpha = Image.new("L", im.size, "black")
-    
+
     imtext = Image.new("L", im.size, 0)
     drtext = ImageDraw.Draw(imtext)
 
     # darken() included for fix lighter color
-    drtext.text((1,1), text, font=font, fill=tohex(darken((inverted(text_color)))))
+    drtext.text((1, 1), text, font=font, fill=tohex(darken((inverted(text_color)))))
     w, h = drtext.textsize(text, font=font)
 
     # get the ligther out of image
@@ -64,7 +71,7 @@ def get_label(text="TEXT", text_color="white", text_size=22, text_font="GeosansL
     im.putalpha(alpha)
     im.filter(ImageFilter.SMOOTH_MORE)
 
-    shadowc = im.crop((0, 0, w+3, h+3))
+    shadowc = im.crop((0, 0, w + 3, h + 3))
     shadowc.load()
 
     blur_f = 10
@@ -72,27 +79,38 @@ def get_label(text="TEXT", text_color="white", text_size=22, text_font="GeosansL
 
     while count < blur_f:
         shadowc.filter(ImageFilter.BLUR)
-        count+=1
-    
+        count += 1
+
     shadowc.save(output, "PNG", quality=50)
-    return output, {'width': w+3, 'height': h+3}
+    return output, {'width': w + 3, 'height': h + 3}
+
 
 def inverted(color):
+    """
+    invert RGB-color
+    """
     rgb = ImageColor.getrgb(color)
-    inv=255
-    return inv-rgb[0], inv-rgb[1], inv-rgb[2]
+    inv = 255
+    return inv - rgb[0], inv - rgb[1], inv - rgb[2]
+
 
 def tohex(rgb):
-    # from http://blog.affien.com/archives/2004/12/20/rgb-to-hex-and-why-the-python-interactive-mode-is-so-damned-handy/
+    """
+    from http://blog.affien.com/archives/2004/12/20/rgb-to-hex-and-why-the-python-interactive-mode-is-so-damned-handy/
+    converts a RGB-color to hexadecimal format
+    """
     return "#%02X%02X%02X" % (rgb[0], rgb[1], rgb[2])
 
+
 def darken(rgb, darken_factor=0.2, rgb_darker=[]):
+    """
+    makes a RGB-color darker
+    """
     for v in rgb:
         v = v / darken_factor
-        if (v>255):
-           v=255
+        if (v > 255):
+            v = 255
         rgb_darker.append(v)
     return rgb_darker
 
 setup_font_list = setup_font_list()
-

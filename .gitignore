@@ -3,3 +3,5 @@
 *.log
 *.sqlite
 *.db
+local_settings.py
+pip-log.txt

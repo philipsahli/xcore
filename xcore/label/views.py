@@ -6,15 +6,19 @@ import datetime
 
 logger = logging.getLogger("xcore")
 
-# return date
 def last_modified(request, key):
+    """
+    returns last-modified value
+    """
     c = cache.get(key)
     if not c:
         return
     return c['last_modified']
 
-# return etag
 def etag(request, key):
+    """
+    return etag (etag is md5-hash from label-key and date
+    """
     c = cache.get(key)
     if not c:
         return
@@ -22,6 +26,9 @@ def etag(request, key):
 
 @condition(etag_func=etag, last_modified_func=last_modified)
 def get_label(request, key):
+    """
+    view-function decorated with the condition-tag
+    """
     try:
         v = cache.get(key)
         if not v:

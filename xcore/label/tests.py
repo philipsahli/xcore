@@ -1,9 +1,9 @@
 from django.test import TestCase
 from django.test.client import Client
-from xcore.label.templatetags.label_tags import labelize, handle_rendering, IMG_TAG
+from xcore.label.templatetags.label_tags import labelize, handle_rendering
+from xcore.label.textimage import get_label
 
 import logging
-from xcore.label.textimage import get_label
 
 logging.disable(logging.DEBUG)
 logging.disable(logging.WARN)
@@ -19,7 +19,6 @@ class LabelTest(TestCase):
         self.assertEquals("tuple", label.__class__.__name__)
 
     def test_template_tag(self):
-        #self.assertEquals(IMG_TAG % (KEY, TEXT, TEXT), labelize(TEXT, "class=default"))
         self.assertTrue('img' in labelize(TEXT, "class=default"))
 
     def test_direct_label(self):
