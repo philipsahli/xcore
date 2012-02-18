@@ -13,7 +13,13 @@ Features:
  - label get cached when template gets rendered, if caching is enabled (strongly recommended)
  - supports HTTP 302 with etag and last-modified HTTPHeaders
 
-Templatetag
+Included fonts:
+
+ - Some fonts are included, taken from:
+    - http://www.dafont.com
+    - http://openfontlibrary.org/
+
+ - License included if provided by the creator.
 -----------
 Usage:
 
@@ -31,9 +37,7 @@ Place your fontfiles (ttf or otf format) in XCORE_FONTS_DIR:
 
 settings.py:
 
- ::
-
-    XCORE_FONTS_DIR = [os.path.join(projectdir, "fonts_dir")]
+ ``XCORE_FONTS_DIR = [os.path.join(projectdir, "fonts_dir")]``
 
 Configure a class with font name (as defined in fontfile), size and color:
 
