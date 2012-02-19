@@ -1,6 +1,7 @@
 =============
 What is Xcore
 =============
+
 Xcore is a collection of helper apps, middlewares and more for Django.
 
 
@@ -15,9 +16,9 @@ Features:
 
 Included fonts:
 
- * Some fonts are included, taken from:
-    - http://www.dafont.com
-    - http://openfontlibrary.org/
+* Some fonts are included, taken from:
+- http://www.dafont.com
+- http://openfontlibrary.org/
 
  * License included if provided by the creator.
 
@@ -60,7 +61,7 @@ Middlewares
 
 EmailOnNotFoundMiddleware
 -------------------------
-xcore.forwarded.middleware.ForwardedMiddleware
+ xcore.forwarded.middleware.ForwardedMiddleware
 
 Sends an email to the admin if a HttpResponseNotFound happens (if settings.DEBUG is false).
 
