@@ -4,6 +4,8 @@ What is Xcore
 
 Xcore is a collection of helper apps, middlewares and more for Django.
 
+.. content::
+
 
 Label App
 =========
