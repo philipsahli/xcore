@@ -19,8 +19,8 @@ Features:
 Included fonts:
 
 * Some fonts are included, taken from:
-- http://www.dafont.com
-- http://openfontlibrary.org/
+ * http://www.dafont.com
+ * http://openfontlibrary.org/
 
  * License included if provided by the creator.
 
@@ -53,8 +53,8 @@ Configure a class with font name (as defined in fontfile), size and color:
 
 Management command
 ------------------
-
  ::
+ python manage.py list_fonts
 
 Output of all font-files which are recognized.
 
