@@ -90,8 +90,3 @@ can still login into Django Admin and the HTML-File which can be displayed is av
 URL '/media/maintenance/index.html'
 
 In Mezzanine the setting is registered as editable setting in the admin.
-
-
-XPages for Mezzanine
-====================
-XPages xcore.mezz.xpages.models.XPage
