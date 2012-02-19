@@ -38,15 +38,15 @@ settings.py::
 
 Configure a class with font name (as defined in fontfile), size and color:
 
- ::
-   
-    XCORE_LABELCONFIG = {
-        'default': {
-            'font': "Caviar Dreams Bold",
-            'size': "22",
-            'color': "#DF1F72",
-        }
+::
+
+ XCORE_LABELCONFIG = {
+    'default': {
+        'font': "Caviar Dreams Bold",
+         'size': "22",
+         'color': "#DF1F72",
     }
+ }
 
 Management command
 ------------------
