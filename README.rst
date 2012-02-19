@@ -10,34 +10,31 @@ Create titles on your website as images in png-format with shipped or your own f
 
 Features:
 
- - label get cached when template gets rendered, if caching is enabled (strongly recommended)
- - supports HTTP 302 with etag and last-modified HTTPHeaders
+ * label get cached when template gets rendered, if caching is enabled (strongly recommended)
+ * supports HTTP 302 with etag and last-modified HTTPHeaders
 
 Included fonts:
 
- - Some fonts are included, taken from:
+ * Some fonts are included, taken from:
     - http://www.dafont.com
     - http://openfontlibrary.org/
 
- - License included if provided by the creator.
------------
-Usage:
+ * License included if provided by the creator.
 
- ``{% load label_tags %}``
+Usage::
 
- ``...``
-
- ``<h1>{{ 'My Title'|labelize:"class=default" }}</h1>``
- ``<h1>{{ 'My Title'|labelize:"color=#DF1F72&font=Futura Md BT Bold" }}</h4>``
-
+ {% load label_tags %}
+ ...
+ <h1>{{ 'My Title'|labelize:"class=default" }}</h1>
+ <h1>{{ 'My Title'|labelize:"color=#DF1F72&font=Futura Md BT Bold" }}</h4>
 
 Configuration
 -------------
 Place your fontfiles (ttf or otf format) in XCORE_FONTS_DIR:
 
-settings.py:
+settings.py::
 
- ``XCORE_FONTS_DIR = [os.path.join(projectdir, "fonts_dir")]``
+ XCORE_FONTS_DIR = [os.path.join(projectdir, "fonts_dir")]
 
 Configure a class with font name (as defined in fontfile), size and color:
 
