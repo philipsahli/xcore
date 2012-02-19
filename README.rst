@@ -11,6 +11,7 @@ Installation
 ============
 
 ::
+
  pip install django_xcore
 
 
