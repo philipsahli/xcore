@@ -98,8 +98,9 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.staticfiles',
     'south',
-    'xcore',
+    'xcore.core',
     'xcore.label',
+    'xcore.profiler',
     'xcore.maintenance',
     'debug_toolbar'
 )

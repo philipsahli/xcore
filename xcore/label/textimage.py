@@ -9,6 +9,7 @@ import os
 # global var
 fonts = {}
 
+
 def setup_font_list():
     """
     setup function for the font_list; searches for fontfiles in the 'font'-directory in the xcore-app

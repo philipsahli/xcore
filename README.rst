@@ -80,13 +80,13 @@ ForwardedMiddleware
 -------------------
  xcore.forwarded.middleware.ForwardedMiddleware
 
-If a django webapp should be reached only proxied by another server, you can activate this middleware.
+If a django webapp must be reached only proxied by another server, you can activate this middleware.
 
 Configuration:
 
 * settings.ONLY_FORWARDED (true or false)
 * settings.HOST_FORWARDED (Host which must be in HTTP_X_FORWARDED_HOST Header-Field)
-* settings.REDIRECT_FORWARDED (URL to redirect to with a HttpRedirectResponse)
+* settings.REDIRECT_FORWARDED (URL to redirect to in HttpRedirectResponse)
 
 MaintenanceMiddleware
 ---------------------
@@ -98,3 +98,18 @@ can still login into Django Admin and the HTML-File which can be displayed is av
 URL '/media/maintenance/index.html'
 
 In Mezzanine the setting is registered as editable setting in the admin.
+
+Profiling
+=========
+ ::
+ xcore.profiler
+
+Decorate a python function as follows:
+ ::
+ @profile("/tmp/profiling/")
+
+Execute your program and be sure the function gets executed sometimes.
+
+Then you can view the results:
+ ::
+ python manage.py profile_result
