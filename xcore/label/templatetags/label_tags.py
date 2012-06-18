@@ -1,12 +1,11 @@
 from django import template
-from django.http import HttpResponse, QueryDict
+from django.http import  QueryDict
 from django.utils.safestring import mark_safe
 from django.core.cache import cache
 from django.conf import settings
 from xcore.label import textimage
 import hashlib
 from datetime import datetime
-from xcore.utils.profiler import profile
 
 register = template.Library()
 

@@ -21,7 +21,6 @@
 
 from django import template
 import django
-from xcore.mezz.xpages.models import XPage
 from django.template.loader import get_template
 from django.template import Context
 
