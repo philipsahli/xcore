@@ -101,15 +101,12 @@ In Mezzanine the setting is registered as editable setting in the admin.
 
 Profiling
 =========
- ::
  xcore.profiler
 
 Decorate a python function as follows:
- ::
  @profile("/tmp/profiling/")
 
 Execute your program and be sure the function gets executed sometimes.
 
 Then you can view the results:
- ::
  python manage.py profile_result
